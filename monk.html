@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Modern Monk — Shapon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#F2EDE4;--cream2:#E8E0D2;--ink:#1A1A14;--ink2:#2A2A20;--forest:#2C4A3E;--forest2:#1E3329;--sienna:#B5522A;--sienna2:#8C3D1C;--moss:#5A7A4F;--sand:#C8A96E;--sand2:#A0854A;--muted:#7A7468;--font-display:'Playfair Display',serif;--font-body:'DM Sans',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--sand2);color:var(--ink);font-family:var(--font-body);font-weight:300;overflow-x:hidden;cursor:none;}
+#progress-bar{position:fixed;top:0;left:0;height:2px;background:var(--forest);z-index:9997;width:0%;}
+.cursor{width:10px;height:10px;background:var(--ink);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+.cursor-ring{width:36px;height:36px;border:1px solid var(--ink);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:0.25;transition:width 0.25s,height 0.25s;}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:1.6rem 3.5rem;background:transparent;transition:background 0.3s;}
+nav.scrolled{background:rgba(160,133,74,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(26,26,20,0.1);}
+.nav-logo{font-family:var(--font-display);font-size:1.4rem;font-weight:700;font-style:italic;color:var(--ink);text-decoration:none;}
+.nav-logo span{color:var(--sienna);}
+.nav-links{display:flex;gap:2rem;align-items:center;}
+.nav-links a{font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(26,26,20,0.45);text-decoration:none;transition:color 0.2s;cursor:none;}
+.nav-links a:hover{color:var(--sienna);}
+/* HERO */
+.page-hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 3.5rem 5rem;position:relative;overflow:hidden;background:var(--sand2);}
+canvas#monkCanvas{position:absolute;inset:0;pointer-events:none;}
+.ph-grain{position:absolute;inset:0;opacity:0.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:180px;pointer-events:none;}
+.ph-bg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--font-display);font-size:clamp(8rem,22vw,20rem);font-weight:900;font-style:italic;color:rgba(26,26,20,0.04);letter-spacing:-0.04em;white-space:nowrap;pointer-events:none;}
+.monk-deco{position:absolute;pointer-events:none;}
+.md-1{top:20%;right:10%;width:100px;height:100px;border-radius:50%;border:1px solid rgba(26,26,20,0.08);animation:mA 8s ease-in-out infinite;}
+.md-2{bottom:30%;left:7%;width:1px;height:120px;background:rgba(26,26,20,0.1);animation:mA 6s ease-in-out infinite 1s;}
+.md-3{top:55%;right:18%;width:40px;height:40px;background:rgba(26,26,20,0.04);animation:mA 10s ease-in-out infinite 2s;}
+@keyframes mA{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+.ph-label{font-size:0.55rem;letter-spacing:0.35em;text-transform:uppercase;color:rgba(26,26,20,0.35);margin-bottom:2rem;position:relative;z-index:2;}
+.ph-title{font-family:var(--font-display);font-size:clamp(4rem,12vw,10rem);font-weight:900;line-height:0.9;letter-spacing:-0.04em;color:var(--ink);position:relative;z-index:2;}
+.ph-title .it{font-style:italic;color:var(--forest);}
+.ph-row{display:flex;justify-content:space-between;align-items:flex-end;margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(26,26,20,0.1);position:relative;z-index:2;}
+.ph-desc{font-size:0.78rem;color:rgba(26,26,20,0.45);max-width:300px;line-height:1.7;}
+/* SECTIONS */
+section{padding:7rem 3.5rem;}
+.max-w{max-width:1200px;margin:0 auto;}
+.slabel{font-size:0.58rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(26,26,20,0.4);margin-bottom:1rem;}
+.stitle{font-family:var(--font-display);font-size:clamp(2.2rem,4.5vw,4rem);font-weight:700;line-height:1;letter-spacing:-0.03em;margin-bottom:2rem;}
+.stitle em{font-style:italic;color:var(--forest);}
+.sdiv{width:40px;height:2px;background:rgba(26,26,20,0.2);margin-bottom:3rem;}
+/* ABOUT MONK */
+#monk-about{background:var(--sand2);}
+.about-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:8rem;align-items:center;margin-top:5rem;}
+.ab-p{font-size:0.95rem;line-height:1.95;color:rgba(26,26,20,0.58);margin-bottom:1.2rem;}
+.ab-panel{background:var(--ink);padding:3.5rem;}
+.ap-header{font-family:var(--font-display);font-size:1.1rem;font-style:italic;color:rgba(200,169,110,0.4);margin-bottom:2rem;}
+.ap-item{padding:1.2rem 0;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;gap:1rem;align-items:flex-start;}
+.ap-item:last-child{border-bottom:none;}
+.api-icon{width:30px;height:30px;background:rgba(200,169,110,0.07);display:flex;align-items:center;justify-content:center;font-size:0.65rem;color:var(--sand);flex-shrink:0;}
+.api-lbl{font-size:0.54rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(200,169,110,0.35);margin-bottom:0.25rem;}
+.api-t{font-family:var(--font-display);font-size:0.88rem;color:var(--cream);line-height:1.3;}
+/* POSTS */
+#monk-posts{background:var(--cream);}
+.posts-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:2rem;margin-top:5rem;}
+.post-feat{background:var(--forest2);padding:4rem;position:relative;overflow:hidden;}
+.pf-bg{position:absolute;bottom:-1rem;right:-1rem;font-family:var(--font-display);font-size:clamp(5rem,10vw,9rem);font-weight:900;color:rgba(255,255,255,0.03);pointer-events:none;letter-spacing:-0.05em;}
+.pf-label{font-size:0.54rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--sand);margin-bottom:1.5rem;}
+.pf-title{font-family:var(--font-display);font-size:clamp(1.6rem,2.8vw,2.3rem);font-weight:700;font-style:italic;color:var(--cream);line-height:1.1;letter-spacing:-0.02em;margin-bottom:1.5rem;}
+.pf-excerpt{font-size:0.84rem;line-height:1.85;color:rgba(242,237,228,0.42);}
+.pf-link{display:inline-flex;align-items:center;gap:0.5rem;margin-top:2.5rem;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--sand);text-decoration:none;}
+.posts-col{display:flex;flex-direction:column;gap:2rem;}
+.post-card{background:var(--cream2);padding:2.5rem;text-decoration:none;color:inherit;transition:transform 0.35s ease,background 0.3s;display:block;cursor:none;position:relative;}
+.post-card::after{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--sienna);transform:scaleY(0);transform-origin:bottom;transition:transform 0.35s ease;}
+.post-card:hover::after{transform:scaleY(1);}
+.post-card:hover{transform:translateX(4px);background:rgba(200,169,110,0.08);}
+.pc-lbl{font-size:0.54rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--sienna);margin-bottom:0.8rem;}
+.pc-title{font-family:var(--font-display);font-size:1.05rem;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:0.6rem;letter-spacing:-0.01em;}
+.pc-excerpt{font-size:0.76rem;line-height:1.7;color:rgba(26,26,20,0.45);}
+/* QUOTES */
+#monk-quotes{background:var(--ink);}
+.quotes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:5rem;background:rgba(255,255,255,0.04);}
+.quote-box{background:var(--ink);padding:3.5rem;transition:background 0.3s;}
+.quote-box:hover{background:var(--ink2);}
+.qb-num{font-family:var(--font-display);font-size:3rem;font-weight:900;font-style:italic;color:rgba(200,169,110,0.1);margin-bottom:1.5rem;line-height:1;}
+.qb-text{font-family:var(--font-display);font-size:1.1rem;font-style:italic;color:var(--cream);line-height:1.45;letter-spacing:-0.01em;}
+.qb-src{font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(200,169,110,0.35);margin-top:1.5rem;}
+/* BTN */
+.btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.85rem 2rem;font-family:var(--font-body);font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;cursor:none;border:none;transition:all 0.3s;position:relative;overflow:hidden;}
+.btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,0.07);transform:translateX(-101%);transition:transform 0.3s;}
+.btn:hover::after{transform:translateX(0);}
+.btn-forest{background:var(--forest);color:var(--cream);}
+.btn-forest:hover{background:var(--moss);}
+.btn-oi{background:transparent;border:1px solid rgba(26,26,20,0.2);color:var(--ink);}
+.btn-oi:hover{border-color:var(--forest);color:var(--forest);}
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.9s ease,transform 0.9s ease;}
+.reveal.visible{opacity:1;transform:none;}
+/* FOOTER */
+.page-footer{background:var(--ink);padding:2.5rem 3.5rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,0.04);}
+.pf-logo{font-family:var(--font-display);font-size:1.2rem;font-weight:900;font-style:italic;color:var(--cream);}
+.pf-logo span{color:var(--sand);}
+.pf-copy{font-size:0.6rem;color:rgba(255,255,255,0.15);}
+.pf-back{font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(242,237,228,0.3);text-decoration:none;transition:color 0.2s;}
+.pf-back:hover{color:var(--sand);}
+@media(max-width:900px){nav{padding:1.1rem 1.5rem;}section{padding:5rem 1.5rem;}.page-hero{padding:0 1.5rem 4rem;}.about-grid,.posts-grid{grid-template-columns:1fr;gap:2.5rem;}.quotes-grid{grid-template-columns:1fr;}.cursor,.cursor-ring{display:none;}body{cursor:auto;}.page-footer{flex-direction:column;gap:1rem;text-align:center;}}
+</style>
+</head>
+<body>
+<div id="progress-bar"></div>
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curR"></div>
+
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">Sha<span>pon</span></a>
+  <div class="nav-links">
+    <a href="films.html">Films</a>
+    <a href="thinkking.html">Agency</a>
+    <a href="library.html">Library</a>
+    <a href="contact.html">Contact</a>
+    <a href="index.html">← Main</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <canvas id="monkCanvas"></canvas>
+  <div class="ph-grain"></div>
+  <div class="ph-bg">MONK</div>
+  <div class="monk-deco md-1"></div>
+  <div class="monk-deco md-2"></div>
+  <div class="monk-deco md-3"></div>
+  <p class="ph-label">Philosophy · Learning · Creative Living</p>
+  <h1 class="ph-title">A Modern<br><span class="it">Monk</span></h1>
+  <div class="ph-row">
+    <p class="ph-desc">A space for ideas about thinking well, living fully, and building things with intention rather than urgency.</p>
+  </div>
+</div>
+
+<section id="monk-about">
+  <div class="max-w">
+    <div class="about-grid">
+      <div class="reveal">
+        <p class="slabel">The Idea</p>
+        <h2 class="stitle">Slow Thinking<br>in a <em>Fast World</em></h2>
+        <div class="sdiv"></div>
+        <p class="ab-p">A Modern Monk is not a brand. It is a commitment — to depth over speed, to understanding over information, to a life lived with deliberate intention.</p>
+        <p class="ab-p">In a world that rewards volume and velocity, the monk's way is different: slow down, go deeper, connect more honestly. These ideas live at the intersection of Bangladeshi wisdom traditions, global philosophy, and the practical reality of building creative ventures.</p>
+        <p class="ab-p">This is where I think out loud — about creativity, culture, learning, and what it means to build a meaningful life in Dhaka in the 21st century.</p>
+        <div style="margin-top:2.5rem;display:flex;gap:1rem;flex-wrap:wrap;">
+          <a href="https://www.facebook.com/modernmonkshapon" target="_blank" class="btn btn-forest btn-magnetic">Follow on Facebook ↗</a>
+          <a href="library.html" class="btn btn-oi btn-magnetic">The Library</a>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="ab-panel">
+          <div class="ap-header">Recent Themes</div>
+          <div class="ap-item"><div class="api-icon">✦</div><div><div class="api-lbl">Philosophy · Thinking</div><div class="api-t">On Solitude as a Creative Practice</div></div></div>
+          <div class="ap-item"><div class="api-icon">◈</div><div><div class="api-lbl">Learning · Growth</div><div class="api-t">Why Reading Slowly is a Radical Act</div></div></div>
+          <div class="ap-item"><div class="api-icon">◇</div><div><div class="api-lbl">Culture · Identity</div><div class="api-t">The Wisdom in 70s Bangla Folk Songs</div></div></div>
+          <div class="ap-item"><div class="api-icon">△</div><div><div class="api-lbl">Entrepreneurship</div><div class="api-t">Building with Intention, Not Urgency</div></div></div>
+          <div class="ap-item"><div class="api-icon">○</div><div><div class="api-lbl">Creativity · Process</div><div class="api-t">The Discipline of the Creative Routine</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="monk-posts">
+  <div class="max-w">
+    <p class="slabel reveal">Ideas & Writing</p>
+    <h2 class="stitle reveal">From the <em>Journal</em></h2>
+    <div class="posts-grid">
+      <div class="post-feat reveal">
+        <div class="pf-bg">THINK</div>
+        <p class="pf-label">Featured · Long Read</p>
+        <h3 class="pf-title">On Solitude as a Creative Practice</h3>
+        <p class="pf-excerpt">We live in an age that pathologizes being alone. Silence makes us reach for our phones. Stillness feels like failure. But every great creative tradition — from the Sufi poets to the Bengali bauls to the great filmmakers — understood that solitude is not emptiness. It is the condition of depth.</p>
+        <a href="https://www.facebook.com/modernmonkshapon" target="_blank" class="pf-link">Read on Facebook ↗</a>
+      </div>
+      <div class="posts-col">
+        <a href="https://www.facebook.com/modernmonkshapon" target="_blank" class="post-card reveal">
+          <div class="pc-lbl">Learning · Growth</div>
+          <div class="pc-title">Why Reading Slowly is a Radical Act</div>
+          <div class="pc-excerpt">Speed-reading is a symptom of a culture that treats knowledge as a commodity. The value of a book is not in finishing it.</div>
+        </a>
+        <a href="https://www.facebook.com/modernmonkshapon" target="_blank" class="post-card reveal">
+          <div class="pc-lbl">Culture · Identity</div>
+          <div class="pc-title">The Wisdom Hidden in 70s Bangla Folk Songs</div>
+          <div class="pc-excerpt">Baul musicians knew something about the impermanence of things that most modern productivity gurus are just beginning to discover.</div>
+        </a>
+        <a href="https://www.facebook.com/modernmonkshapon" target="_blank" class="post-card reveal">
+          <div class="pc-lbl">Entrepreneurship · Mindset</div>
+          <div class="pc-title">Building Things with Intention, Not Urgency</div>
+          <div class="pc-excerpt">The best ventures are built slowly. Not because speed doesn't matter — but because foundation matters more than pace.</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="monk-quotes">
+  <div class="max-w">
+    <p class="slabel reveal" style="color:var(--sand);">Guiding Principles</p>
+    <h2 class="stitle reveal" style="color:var(--cream);">Ideas I<br><em>Live By</em></h2>
+    <div class="quotes-grid">
+      <div class="quote-box reveal"><div class="qb-num">01</div><div class="qb-text">"The purpose of slowing down is not to arrive later — it is to arrive more fully."</div><div class="qb-src">On Intentionality</div></div>
+      <div class="quote-box reveal"><div class="qb-num">02</div><div class="qb-text">"Culture is not what we inherit. It is what we choose to carry forward."</div><div class="qb-src">On Identity</div></div>
+      <div class="quote-box reveal"><div class="qb-num">03</div><div class="qb-text">"The discipline of the creative is not inspiration — it is showing up when there is none."</div><div class="qb-src">On Creative Practice</div></div>
+    </div>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <div class="pf-logo">A Modern <span>Monk</span></div>
+  <div class="pf-copy">© 2025 Shapon · Philosophy & Ideas</div>
+  <a href="index.html" class="pf-back">← Return to Main</a>
+</footer>
+
+<script>
+const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function loop(){rx+=(mx-rx)*0.11;ry+=(my-ry)*0.11;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(loop);})();
+document.querySelectorAll('a,button,.post-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.transform='translate(-50%,-50%) scale(2)';curR.style.width='52px';curR.style.height='52px';});
+  el.addEventListener('mouseleave',()=>{cur.style.transform='translate(-50%,-50%) scale(1)';curR.style.width='36px';curR.style.height='36px';});
+});
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>60);
+  const h=document.documentElement.scrollHeight-window.innerHeight;
+  document.getElementById('progress-bar').style.width=(window.scrollY/h*100)+'%';
+});
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.07});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+(function(){
+  const canvas=document.getElementById('monkCanvas');const ctx=canvas.getContext('2d');
+  function resize(){canvas.width=canvas.offsetWidth;canvas.height=canvas.offsetHeight;}
+  resize();window.addEventListener('resize',resize);
+  const pts=[];for(let i=0;i<45;i++) pts.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*1.2+0.3,vx:(Math.random()-.5)*.15,vy:(Math.random()-.5)*.15,a:Math.random()*0.15+0.05});
+  let pmx=canvas.width/2,pmy=canvas.height/2;
+  document.addEventListener('mousemove',e=>{pmx=e.clientX;pmy=e.clientY;});
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    pts.forEach(p=>{const dx=p.x-pmx,dy=p.y-pmy,dist=Math.sqrt(dx*dx+dy*dy);if(dist<90){p.vx+=dx/dist*0.025;p.vy+=dy/dist*0.025;}p.vx*=0.98;p.vy*=0.98;p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=canvas.width;if(p.x>canvas.width)p.x=0;if(p.y<0)p.y=canvas.height;if(p.y>canvas.height)p.y=0;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(26,26,20,${p.a})`;ctx.fill();});
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+document.querySelectorAll('.btn-magnetic').forEach(btn=>{
+  btn.addEventListener('mousemove',e=>{const r=btn.getBoundingClientRect();const x=(e.clientX-r.left-r.width/2)*0.25;const y=(e.clientY-r.top-r.height/2)*0.25;btn.style.transform=`translate(${x}px,${y}px)`;btn.style.transition='transform 0.1s ease';});
+  btn.addEventListener('mouseleave',()=>{btn.style.transform='translate(0,0)';btn.style.transition='transform 0.5s cubic-bezier(0.16,1,0.3,1)';});
+});
+</script>
+</body>
+</html>

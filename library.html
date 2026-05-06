@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Library — Shapon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#F2EDE4;--cream2:#E8E0D2;--ink:#1A1A14;--ink2:#2A2A20;--forest:#2C4A3E;--forest2:#1E3329;--sienna:#B5522A;--sienna2:#8C3D1C;--moss:#5A7A4F;--sand:#C8A96E;--sand2:#A0854A;--muted:#7A7468;--font-display:'Playfair Display',serif;--font-body:'DM Sans',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--ink);font-family:var(--font-body);font-weight:300;overflow-x:hidden;cursor:none;}
+#progress-bar{position:fixed;top:0;left:0;height:2px;background:var(--forest);z-index:9997;width:0%;}
+.cursor{width:10px;height:10px;background:var(--forest);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+.cursor-ring{width:36px;height:36px;border:1px solid var(--forest);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:0.35;transition:width 0.25s,height 0.25s;}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:1.6rem 3.5rem;background:transparent;transition:background 0.3s;}
+nav.scrolled{background:rgba(242,237,228,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(26,26,20,0.07);}
+.nav-logo{font-family:var(--font-display);font-size:1.4rem;font-weight:700;font-style:italic;color:var(--cream);text-decoration:none;transition:color 0.3s;}
+nav.scrolled .nav-logo{color:var(--ink);}
+.nav-logo span{color:var(--sienna);}
+.nav-links{display:flex;gap:2rem;align-items:center;}
+.nav-links a{font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(242,237,228,0.4);text-decoration:none;transition:color 0.2s;cursor:none;}
+nav.scrolled .nav-links a{color:rgba(26,26,20,0.45);}
+.nav-links a:hover{color:var(--sienna);}
+/* HERO */
+.page-hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 3.5rem 5rem;position:relative;overflow:hidden;background:var(--forest2);}
+canvas#libCanvas{position:absolute;inset:0;pointer-events:none;}
+.ph-grain{position:absolute;inset:0;opacity:0.05;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:180px;pointer-events:none;}
+.ph-bg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--font-display);font-size:clamp(8rem,22vw,20rem);font-weight:900;font-style:italic;color:rgba(255,255,255,0.012);letter-spacing:-0.04em;white-space:nowrap;pointer-events:none;}
+.book-deco{position:absolute;pointer-events:none;}
+.bd-1{top:20%;right:8%;width:2px;height:140px;background:linear-gradient(to bottom,transparent,rgba(200,169,110,0.15),transparent);animation:bA 7s ease-in-out infinite;}
+.bd-2{bottom:35%;left:7%;width:80px;height:1px;background:rgba(200,169,110,0.12);animation:bA 6s ease-in-out infinite 1s;}
+.bd-3{top:55%;right:15%;width:50px;height:50px;border:1px solid rgba(200,169,110,0.1);animation:bA 9s ease-in-out infinite 2s;}
+@keyframes bA{0%,100%{opacity:0.5;transform:translateY(0);}50%{opacity:1;transform:translateY(-10px);}}
+.ph-label{font-size:0.55rem;letter-spacing:0.35em;text-transform:uppercase;color:rgba(200,169,110,0.35);margin-bottom:2rem;position:relative;z-index:2;}
+.ph-title{font-family:var(--font-display);font-size:clamp(4rem,12vw,10rem);font-weight:900;line-height:0.9;letter-spacing:-0.04em;color:var(--cream);position:relative;z-index:2;}
+.ph-title .it{font-style:italic;color:var(--sand);}
+.ph-row{display:flex;justify-content:space-between;align-items:flex-end;margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,0.06);position:relative;z-index:2;}
+.ph-desc{font-size:0.78rem;color:rgba(242,237,228,0.35);max-width:300px;line-height:1.7;}
+/* SECTIONS */
+section{padding:7rem 3.5rem;}
+.max-w{max-width:1200px;margin:0 auto;}
+.slabel{font-size:0.58rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--sienna);margin-bottom:1rem;}
+.stitle{font-family:var(--font-display);font-size:clamp(2.2rem,4.5vw,4rem);font-weight:700;line-height:1;letter-spacing:-0.03em;margin-bottom:2rem;}
+.stitle em{font-style:italic;color:var(--forest);}
+.sdiv{width:40px;height:2px;background:var(--sienna);margin-bottom:3rem;}
+/* FEATURED */
+#lib-featured{background:var(--cream);}
+.feat-wrap{display:grid;grid-template-columns:1fr 1.5fr;gap:8rem;align-items:start;margin-top:5rem;}
+.feat-sticky{position:sticky;top:8rem;}
+.feat-num{font-family:var(--font-display);font-size:7rem;font-weight:900;color:rgba(26,26,20,0.04);line-height:1;letter-spacing:-0.05em;margin-bottom:-1.5rem;}
+.feat-label{font-size:0.56rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--sienna);margin-bottom:1rem;}
+.feat-title{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.2rem);font-weight:900;font-style:italic;line-height:1;letter-spacing:-0.03em;color:var(--ink);margin-bottom:1.5rem;}
+.feat-body{font-size:0.92rem;line-height:1.95;color:rgba(26,26,20,0.55);margin-bottom:1.2rem;}
+/* ESSAYS */
+.essay-list{}
+.essay-item{padding:3rem 0;border-top:1px solid rgba(26,26,20,0.07);display:grid;grid-template-columns:80px 1fr;gap:2.5rem;align-items:start;transition:padding-left 0.3s;cursor:none;text-decoration:none;color:inherit;position:relative;}
+.essay-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--forest);transform:scaleY(0);transition:transform 0.35s ease;}
+.essay-item:hover::before{transform:scaleY(1);}
+.essay-item:hover{padding-left:0.8rem;}
+.essay-item:last-child{border-bottom:1px solid rgba(26,26,20,0.07);}
+.ei-num{font-family:var(--font-display);font-size:0.8rem;font-style:italic;color:rgba(26,26,20,0.2);padding-top:0.3rem;}
+.ei-cat{font-size:0.54rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--sienna);margin-bottom:0.5rem;}
+.ei-title{font-family:var(--font-display);font-size:clamp(1.2rem,2.2vw,1.7rem);font-weight:700;color:var(--ink);letter-spacing:-0.02em;margin-bottom:0.5rem;}
+.ei-excerpt{font-size:0.8rem;line-height:1.8;color:rgba(26,26,20,0.45);max-width:500px;}
+.ei-arr{display:inline-flex;align-items:center;gap:0.4rem;margin-top:1rem;font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--forest);}
+/* READING LIST */
+#lib-reading{background:var(--forest2);}
+.rl-intro{font-size:0.92rem;line-height:1.9;color:rgba(242,237,228,0.45);max-width:560px;margin-bottom:4rem;}
+.books-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem;}
+.book-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);padding:2rem 1.5rem;transition:transform 0.35s ease,background 0.3s;}
+.book-card:hover{transform:translateY(-4px);background:rgba(255,255,255,0.05);}
+.bc-spine{width:3px;height:40px;background:var(--sienna);margin-bottom:1.5rem;}
+.book-card:nth-child(2) .bc-spine{background:var(--sand);}
+.book-card:nth-child(3) .bc-spine{background:var(--moss);}
+.book-card:nth-child(4) .bc-spine{background:var(--sienna2);}
+.bc-title{font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--cream);line-height:1.2;margin-bottom:0.5rem;}
+.bc-author{font-size:0.62rem;color:rgba(200,169,110,0.5);margin-bottom:1rem;}
+.bc-note{font-size:0.72rem;line-height:1.7;color:rgba(242,237,228,0.35);}
+/* QUOTE */
+#lib-quote{background:var(--sand2);position:relative;overflow:hidden;padding:8rem 3.5rem;}
+.lq-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:clamp(8rem,20vw,18rem);font-weight:900;font-style:italic;color:rgba(26,26,20,0.05);pointer-events:none;letter-spacing:-0.04em;}
+.lq-inner{max-width:900px;margin:0 auto;position:relative;z-index:1;text-align:center;}
+.lq-text{font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,3rem);font-style:italic;font-weight:700;line-height:1.25;color:var(--ink);letter-spacing:-0.02em;margin-bottom:2rem;}
+.lq-src{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,20,0.4);}
+/* BTN */
+.btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.85rem 2rem;font-family:var(--font-body);font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;cursor:none;border:none;transition:all 0.3s;position:relative;overflow:hidden;}
+.btn-forest{background:var(--forest);color:var(--cream);}
+.btn-forest:hover{background:var(--moss);}
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.9s ease,transform 0.9s ease;}
+.reveal.visible{opacity:1;transform:none;}
+/* FOOTER */
+.page-footer{background:var(--ink);padding:2.5rem 3.5rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,0.04);}
+.pf-logo{font-family:var(--font-display);font-size:1.2rem;font-weight:900;font-style:italic;color:var(--cream);}
+.pf-logo span{color:var(--sienna);}
+.pf-copy{font-size:0.6rem;color:rgba(255,255,255,0.15);}
+.pf-back{font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(242,237,228,0.3);text-decoration:none;transition:color 0.2s;}
+.pf-back:hover{color:var(--sand);}
+@media(max-width:900px){nav{padding:1.1rem 1.5rem;}section,#lib-quote{padding:5rem 1.5rem;}.page-hero{padding:0 1.5rem 4rem;}.feat-wrap{grid-template-columns:1fr;gap:2.5rem;}.feat-sticky{position:static;}.books-grid{grid-template-columns:repeat(2,1fr);}.essay-item{grid-template-columns:50px 1fr;gap:1rem;}.cursor,.cursor-ring{display:none;}body{cursor:auto;}.page-footer{flex-direction:column;gap:1rem;text-align:center;}}
+</style>
+</head>
+<body>
+<div id="progress-bar"></div>
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curR"></div>
+
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">Sha<span>pon</span></a>
+  <div class="nav-links">
+    <a href="films.html">Films</a>
+    <a href="thinkking.html">Agency</a>
+    <a href="monk.html">Monk</a>
+    <a href="contact.html">Contact</a>
+    <a href="index.html">← Main</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <canvas id="libCanvas"></canvas>
+  <div class="ph-grain"></div>
+  <div class="ph-bg">LIBRARY</div>
+  <div class="book-deco bd-1"></div>
+  <div class="book-deco bd-2"></div>
+  <div class="book-deco bd-3"></div>
+  <p class="ph-label">Essays · Reading · Intellectual Exploration</p>
+  <h1 class="ph-title">The<br><span class="it">Library</span></h1>
+  <div class="ph-row">
+    <p class="ph-desc">A collection of essays, reading lists, and ideas at the intersection of cinema, culture, and the Bengali creative tradition.</p>
+  </div>
+</div>
+
+<section id="lib-featured">
+  <div class="max-w">
+    <div class="feat-wrap">
+      <div class="feat-sticky reveal">
+        <p class="slabel">Featured Meditation</p>
+        <div class="feat-num">01</div>
+        <p class="feat-label">Long-form Essay</p>
+        <h2 class="feat-title">Swapner Sampad — Dreams as Cultural Wealth</h2>
+        <div style="width:40px;height:2px;background:var(--sienna);margin:1.5rem 0;"></div>
+        <p class="feat-body">A personal meditation on cultural inheritance — exploring why the visual grammar of 70s Bengali cinema is not nostalgia, but living fuel for contemporary Bangladeshi creativity.</p>
+        <p class="feat-body">Drawing from Tagore, Nazrul, and the folk mythology that runs beneath everything we make, this essay asks: what does it mean to dream in Bengali?</p>
+        <div style="margin-top:2rem;">
+          <a href="contact.html" class="btn btn-forest">Discuss This Work</a>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="essay-list">
+          <a href="#" class="essay-item">
+            <div class="ei-num">01</div>
+            <div><div class="ei-cat">Essay · Cinema</div><div class="ei-title">Why Bangladeshi Cinema Must Reclaim Its Own Mythology</div><div class="ei-excerpt">Our stories are rich, ancient, and largely untold on the global screen. Here's why that needs to change — and how filmmakers can lead the way.</div><div class="ei-arr">Read Essay →</div></div>
+          </a>
+          <a href="#" class="essay-item">
+            <div class="ei-num">02</div>
+            <div><div class="ei-cat">Essay · Literature</div><div class="ei-title">When Literature Becomes a Lens</div><div class="ei-excerpt">On how Bengali prose fiction — from Tagore to contemporary writers — informs the way I frame shots, write characters, and choose silence over dialogue.</div><div class="ei-arr">Read Essay →</div></div>
+          </a>
+          <a href="#" class="essay-item">
+            <div class="ei-num">03</div>
+            <div><div class="ei-cat">Essay · Culture</div><div class="ei-title">The 70s Bengali Film Aesthetic — A Visual Grammar</div><div class="ei-excerpt">A detailed exploration of what made golden-era Bengali cinema visually distinctive — and why those techniques still offer lessons for contemporary filmmakers.</div><div class="ei-arr">Read Essay →</div></div>
+          </a>
+          <a href="#" class="essay-item">
+            <div class="ei-num">04</div>
+            <div><div class="ei-cat">Essay · Entrepreneurship</div><div class="ei-title">Building Creative Ventures That Mean Something</div><div class="ei-excerpt">On the difference between businesses that are merely profitable and ventures that contribute to a cultural moment — and how to build the latter.</div><div class="ei-arr">Read Essay →</div></div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="lib-reading">
+  <div class="max-w">
+    <p class="slabel reveal">Reading List</p>
+    <h2 class="stitle reveal" style="color:var(--cream);">Books That<br><em>Changed How I See</em></h2>
+    <p class="rl-intro reveal">A living list of books, films, and ideas that have fundamentally reshaped my creative perspective. Updated seasonally.</p>
+    <div class="books-grid">
+      <div class="book-card reveal">
+        <div class="bc-spine"></div>
+        <div class="bc-title">Gitanjali</div>
+        <div class="bc-author">Rabindranath Tagore</div>
+        <div class="bc-note">The book that taught me that poetry and image are the same thing — that a frame is a stanza.</div>
+      </div>
+      <div class="book-card reveal">
+        <div class="bc-spine"></div>
+        <div class="bc-title">Ways of Seeing</div>
+        <div class="bc-author">John Berger</div>
+        <div class="bc-note">How we look at images is never neutral. This book changed my relationship to the camera forever.</div>
+      </div>
+      <div class="book-card reveal">
+        <div class="bc-spine"></div>
+        <div class="bc-title">Story</div>
+        <div class="bc-author">Robert McKee</div>
+        <div class="bc-note">The architecture of narrative — not as formula, but as deep structure that mirrors how humans make meaning.</div>
+      </div>
+      <div class="book-card reveal">
+        <div class="bc-spine"></div>
+        <div class="bc-title">Mrityukhudha</div>
+        <div class="bc-author">Kazi Nazrul Islam</div>
+        <div class="bc-note">The work that gave The Mrityukhudha Society its name. A reminder that art can be both fierce and tender.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="lib-quote">
+  <div class="lq-bg">READ</div>
+  <div class="lq-inner reveal">
+    <div class="lq-text">"A man who reads lives many lives before he begins to live one."</div>
+    <div class="lq-src">— On the practice of reading deeply</div>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <div class="pf-logo">The <span>Library</span></div>
+  <div class="pf-copy">© 2025 Shapon · Intellectual Exploration</div>
+  <a href="index.html" class="pf-back">← Return to Main</a>
+</footer>
+
+<script>
+const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function loop(){rx+=(mx-rx)*0.11;ry+=(my-ry)*0.11;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(loop);})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.transform='translate(-50%,-50%) scale(2.2)';curR.style.width='52px';curR.style.height='52px';});
+  el.addEventListener('mouseleave',()=>{cur.style.transform='translate(-50%,-50%) scale(1)';curR.style.width='36px';curR.style.height='36px';});
+});
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>60);
+  const h=document.documentElement.scrollHeight-window.innerHeight;
+  document.getElementById('progress-bar').style.width=(window.scrollY/h*100)+'%';
+});
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.07});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+(function(){
+  const canvas=document.getElementById('libCanvas');const ctx=canvas.getContext('2d');
+  function resize(){canvas.width=canvas.offsetWidth;canvas.height=canvas.offsetHeight;}
+  resize();window.addEventListener('resize',resize);
+  const pts=[];for(let i=0;i<50;i++) pts.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*1.2+0.3,vx:(Math.random()-.5)*.18,vy:(Math.random()-.5)*.18,a:Math.random()*0.2+0.05});
+  let pmx=canvas.width/2,pmy=canvas.height/2;
+  document.addEventListener('mousemove',e=>{pmx=e.clientX;pmy=e.clientY;});
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    pts.forEach(p=>{const dx=p.x-pmx,dy=p.y-pmy,dist=Math.sqrt(dx*dx+dy*dy);if(dist<100){p.vx+=dx/dist*0.028;p.vy+=dy/dist*0.028;}p.vx*=0.98;p.vy*=0.98;p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=canvas.width;if(p.x>canvas.width)p.x=0;if(p.y<0)p.y=canvas.height;if(p.y>canvas.height)p.y=0;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(200,169,110,${p.a})`;ctx.fill();});
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+</body>
+</html>

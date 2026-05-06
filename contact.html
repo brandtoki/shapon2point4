@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Shapon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#F2EDE4;--cream2:#E8E0D2;--ink:#1A1A14;--ink2:#2A2A20;--forest:#2C4A3E;--forest2:#1E3329;--sienna:#B5522A;--sienna2:#8C3D1C;--moss:#5A7A4F;--sand:#C8A96E;--sand2:#A0854A;--muted:#7A7468;--font-display:'Playfair Display',serif;--font-body:'DM Sans',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--forest2);color:var(--cream);font-family:var(--font-body);font-weight:300;overflow-x:hidden;cursor:none;}
+#progress-bar{position:fixed;top:0;left:0;height:2px;background:var(--sienna);z-index:9997;width:0%;}
+.cursor{width:10px;height:10px;background:var(--sienna);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+.cursor-ring{width:36px;height:36px;border:1px solid var(--sienna);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:0.35;transition:width 0.25s,height 0.25s;}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:1.6rem 3.5rem;background:transparent;transition:background 0.3s;}
+nav.scrolled{background:rgba(30,51,41,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.05);}
+.nav-logo{font-family:var(--font-display);font-size:1.4rem;font-weight:700;font-style:italic;color:var(--cream);text-decoration:none;}
+.nav-logo span{color:var(--sienna);}
+.nav-links{display:flex;gap:2rem;align-items:center;}
+.nav-links a{font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(242,237,228,0.3);text-decoration:none;transition:color 0.2s;cursor:none;}
+.nav-links a:hover{color:var(--sand);}
+/* HERO */
+.page-hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 3.5rem 5rem;position:relative;overflow:hidden;background:var(--forest2);}
+canvas#contactCanvas{position:absolute;inset:0;pointer-events:none;}
+.ph-grain{position:absolute;inset:0;opacity:0.05;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:180px;pointer-events:none;}
+.ph-bg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--font-display);font-size:clamp(7rem,18vw,17rem);font-weight:900;font-style:italic;color:rgba(255,255,255,0.012);letter-spacing:-0.04em;white-space:nowrap;pointer-events:none;}
+.ph-deco-1{position:absolute;top:15%;right:8%;width:150px;height:150px;border-radius:50%;border:1px solid rgba(181,82,42,0.1);animation:dA 9s ease-in-out infinite;}
+.ph-deco-2{position:absolute;bottom:35%;left:6%;width:1px;height:100px;background:rgba(200,169,110,0.12);animation:dA 7s ease-in-out infinite 1s;}
+@keyframes dA{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+.ph-label{font-size:0.55rem;letter-spacing:0.35em;text-transform:uppercase;color:rgba(200,169,110,0.35);margin-bottom:2rem;position:relative;z-index:2;}
+.ph-title{font-family:var(--font-display);font-size:clamp(4rem,12vw,10rem);font-weight:900;line-height:0.9;letter-spacing:-0.04em;color:var(--cream);position:relative;z-index:2;}
+.ph-title .it{font-style:italic;color:var(--sienna);}
+.ph-row{display:flex;justify-content:space-between;align-items:flex-end;margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,0.06);position:relative;z-index:2;}
+.ph-desc{font-size:0.78rem;color:rgba(242,237,228,0.35);max-width:300px;line-height:1.7;}
+.ph-avail{display:flex;align-items:center;gap:0.6rem;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(90,122,79,0.8);}
+.ph-avail::before{content:'';display:block;width:7px;height:7px;border-radius:50%;background:var(--moss);animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.85);}}
+/* MAIN CONTACT */
+#contact-main{background:var(--forest2);padding:7rem 3.5rem;}
+.max-w{max-width:1200px;margin:0 auto;}
+.contact-layout{display:grid;grid-template-columns:1fr 1.3fr;gap:8rem;margin-top:5rem;align-items:start;}
+/* LEFT INFO */
+.slabel{font-size:0.58rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--sand);margin-bottom:1rem;}
+.stitle{font-family:var(--font-display);font-size:clamp(2.2rem,4.5vw,4rem);font-weight:700;line-height:1;letter-spacing:-0.03em;margin-bottom:2rem;}
+.stitle em{font-style:italic;color:var(--sienna);}
+.sdiv{width:40px;height:2px;background:var(--sand);margin-bottom:3rem;}
+.c-info-p{font-size:0.9rem;line-height:1.9;color:rgba(242,237,228,0.4);margin-bottom:2.5rem;}
+.c-item{display:flex;gap:1.5rem;margin-bottom:2.2rem;align-items:flex-start;}
+.c-icon{width:42px;height:42px;border:1px solid rgba(200,169,110,0.14);display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;color:var(--sand);}
+.c-lbl{font-size:0.54rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(200,169,110,0.35);margin-bottom:0.25rem;}
+.c-val{font-size:0.85rem;color:var(--cream);}
+.c-val a{color:var(--cream);text-decoration:none;transition:color 0.2s;}
+.c-val a:hover{color:var(--sand);}
+.c-avail{margin-top:3rem;}
+.ca-head{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(200,169,110,0.35);margin-bottom:1.2rem;padding-bottom:0.8rem;border-bottom:1px solid rgba(255,255,255,0.05);}
+.ca-item{display:flex;align-items:center;justify-content:space-between;padding:0.8rem 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+.ca-item:last-child{border-bottom:none;}
+.ca-name{font-size:0.78rem;color:rgba(242,237,228,0.5);}
+.ca-status{font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.25rem 0.7rem;}
+.ca-status.open{border:1px solid rgba(90,122,79,0.35);color:var(--moss);}
+.ca-status.limited{border:1px solid rgba(200,169,110,0.3);color:rgba(200,169,110,0.6);}
+.soc-row{display:flex;gap:0.7rem;margin-top:2.5rem;flex-wrap:wrap;}
+.soc{width:42px;height:42px;border:1px solid rgba(242,237,228,0.07);display:flex;align-items:center;justify-content:center;color:rgba(242,237,228,0.28);text-decoration:none;font-size:0.6rem;font-weight:500;transition:all 0.25s;cursor:none;}
+.soc:hover{border-color:var(--sand);color:var(--sand);transform:translateY(-3px);}
+/* FORM */
+.contact-form{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.05);padding:3.5rem;}
+.form-head{font-family:var(--font-display);font-size:1.4rem;font-weight:700;font-style:italic;color:var(--cream);margin-bottom:0.5rem;letter-spacing:-0.02em;}
+.form-sub{font-size:0.76rem;color:rgba(242,237,228,0.35);margin-bottom:2.5rem;}
+.fg{margin-bottom:1.3rem;}
+.fg label{display:block;font-size:0.54rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(200,169,110,0.38);margin-bottom:0.5rem;}
+.fg input,.fg textarea,.fg select{width:100%;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07);color:var(--cream);padding:0.85rem 1rem;font-family:var(--font-body);font-size:0.85rem;font-weight:300;outline:none;transition:border-color 0.25s,background 0.25s;resize:none;appearance:none;}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:rgba(200,169,110,0.3);background:rgba(255,255,255,0.04);}
+.fg input::placeholder,.fg textarea::placeholder{color:rgba(242,237,228,0.15);}
+.fg select option{background:var(--forest2);color:var(--cream);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.form-ok{display:none;padding:1rem;background:rgba(90,122,79,0.18);border:1px solid rgba(90,122,79,0.3);font-size:0.78rem;color:rgba(242,237,228,0.7);margin-top:1rem;line-height:1.6;}
+/* BTN */
+.btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.95rem 2.2rem;font-family:var(--font-body);font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;cursor:none;border:none;transition:all 0.3s;position:relative;overflow:hidden;}
+.btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,0.08);transform:translateX(-101%);transition:transform 0.3s;}
+.btn:hover::after{transform:translateX(0);}
+.btn-sienna{background:var(--sienna);color:var(--cream);}
+.btn-sienna:hover{background:var(--sienna2);}
+/* VENTURES QUICK */
+#contact-ventures{background:var(--ink);padding:5rem 3.5rem;}
+.vc-head{font-size:0.56rem;letter-spacing:0.25em;text-transform:uppercase;color:rgba(200,169,110,0.3);margin-bottom:2rem;}
+.vc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,0.04);}
+.vc-card{background:var(--ink);padding:2.5rem 2rem;text-decoration:none;color:inherit;transition:background 0.3s;display:block;cursor:none;position:relative;overflow:hidden;}
+.vc-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--sienna);transform:scaleX(0);transform-origin:left;transition:transform 0.4s ease;}
+.vc-card:hover{background:var(--ink2);}
+.vc-card:hover::after{transform:scaleX(1);}
+.vc-num{font-family:var(--font-display);font-size:0.7rem;font-style:italic;color:rgba(242,237,228,0.12);margin-bottom:1rem;}
+.vc-name{font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--cream);margin-bottom:0.4rem;letter-spacing:-0.01em;}
+.vc-desc{font-size:0.7rem;color:rgba(242,237,228,0.28);line-height:1.6;}
+.vc-arr{display:block;margin-top:1.2rem;font-size:0.8rem;color:rgba(242,237,228,0.15);transition:color 0.2s,transform 0.2s;}
+.vc-card:hover .vc-arr{color:var(--sand);transform:translate(3px,-3px);}
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.9s ease,transform 0.9s ease;}
+.reveal.visible{opacity:1;transform:none;}
+/* FOOTER */
+.page-footer{background:var(--ink2);padding:2.5rem 3.5rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,0.04);}
+.pf-logo{font-family:var(--font-display);font-size:1.2rem;font-weight:900;font-style:italic;color:var(--cream);}
+.pf-logo span{color:var(--sienna);}
+.pf-copy{font-size:0.6rem;color:rgba(255,255,255,0.15);}
+.pf-back{font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(242,237,228,0.3);text-decoration:none;transition:color 0.2s;}
+.pf-back:hover{color:var(--sand);}
+@media(max-width:900px){nav{padding:1.1rem 1.5rem;}#contact-main,#contact-ventures{padding:5rem 1.5rem;}.page-hero{padding:0 1.5rem 4rem;}.contact-layout{grid-template-columns:1fr;gap:3rem;}.form-row{grid-template-columns:1fr;}.vc-grid{grid-template-columns:repeat(2,1fr);}.cursor,.cursor-ring{display:none;}body{cursor:auto;}.page-footer{flex-direction:column;gap:1rem;text-align:center;}}
+</style>
+</head>
+<body>
+<div id="progress-bar"></div>
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curR"></div>
+
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">Sha<span>pon</span></a>
+  <div class="nav-links">
+    <a href="films.html">Films</a>
+    <a href="thinkking.html">Agency</a>
+    <a href="library.html">Library</a>
+    <a href="monk.html">Monk</a>
+    <a href="index.html">← Main</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <canvas id="contactCanvas"></canvas>
+  <div class="ph-grain"></div>
+  <div class="ph-bg">CONNECT</div>
+  <div class="ph-deco-1"></div>
+  <div class="ph-deco-2"></div>
+  <p class="ph-label">Collaboration · Projects · Ideas</p>
+  <h1 class="ph-title">Let's<br>Build <span class="it">Together</span></h1>
+  <div class="ph-row">
+    <p class="ph-desc">Open to film projects, brand collaborations, creative consulting, and conversations worth having.</p>
+    <div class="ph-avail">Available for new projects</div>
+  </div>
+</div>
+
+<div id="contact-main">
+  <div class="max-w">
+    <div class="contact-layout">
+      <div class="reveal">
+        <p class="slabel">Get In Touch</p>
+        <h2 class="stitle">Start a<br><em>Conversation</em></h2>
+        <div class="sdiv"></div>
+        <p class="c-info-p">Whether you have a film project, a brand that needs a story, or simply an idea worth talking about — I'm interested. Reach out directly or fill in the form.</p>
+        <div class="c-item"><div class="c-icon">✉</div><div><div class="c-lbl">Email</div><div class="c-val"><a href="mailto:shapon2point4@gmail.com">shapon2point4@gmail.com</a></div></div></div>
+        <div class="c-item"><div class="c-icon">📍</div><div><div class="c-lbl">Location</div><div class="c-val">Dhaka, Bangladesh</div></div></div>
+        <div class="c-item"><div class="c-icon">⏱</div><div><div class="c-lbl">Response Time</div><div class="c-val">Usually within 24–48 hours</div></div></div>
+        <div class="c-avail">
+          <div class="ca-head">Current Availability</div>
+          <div class="ca-item"><div class="ca-name">Film Direction</div><span class="ca-status open">Open</span></div>
+          <div class="ca-item"><div class="ca-name">Brand Collaborations</div><span class="ca-status open">Open</span></div>
+          <div class="ca-item"><div class="ca-name">Creative Consulting</div><span class="ca-status limited">Limited</span></div>
+          <div class="ca-item"><div class="ca-name">Speaking / Events</div><span class="ca-status open">Open</span></div>
+        </div>
+        <div class="soc-row" style="margin-top:2.5rem;">
+          <a href="https://www.facebook.com/shapon2point4" target="_blank" class="soc">FB</a>
+          <a href="https://www.instagram.com/shapon2point4" target="_blank" class="soc">IG</a>
+          <a href="https://www.facebook.com/thinkkingbd" target="_blank" class="soc">TK</a>
+          <a href="https://www.facebook.com/khalnayakbeyou" target="_blank" class="soc">KN</a>
+          <a href="https://www.facebook.com/mrityukhudhasociety" target="_blank" class="soc">MS</a>
+          <a href="https://www.facebook.com/modernmonkshapon" target="_blank" class="soc">MM</a>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="contact-form">
+          <div class="form-head">Send a Message</div>
+          <div class="form-sub">Tell me about your project and I'll get back to you soon.</div>
+          <div class="form-row">
+            <div class="fg"><label>Your Name</label><input type="text" id="fN" placeholder="Full name"></div>
+            <div class="fg"><label>Email</label><input type="email" id="fE" placeholder="your@email.com"></div>
+          </div>
+          <div class="fg">
+            <label>Project Type</label>
+            <select id="fT">
+              <option value="" disabled selected>Select project type</option>
+              <option>Film / Video Production</option>
+              <option>Brand Strategy & Identity</option>
+              <option>Commercial / Campaign</option>
+              <option>Creative Consulting</option>
+              <option>Khalnayak / Fashion</option>
+              <option>Speaking / Events</option>
+              <option>Other Collaboration</option>
+            </select>
+          </div>
+          <div class="fg"><label>Subject</label><input type="text" id="fS" placeholder="One-line description of your project"></div>
+          <div class="fg"><label>Message</label><textarea id="fM" rows="6" placeholder="Tell me about your project — timeline, scope, vision..."></textarea></div>
+          <button class="btn btn-sienna btn-magnetic" onclick="sendForm()" style="width:100%;justify-content:center;margin-top:0.5rem;">Send Message →</button>
+          <div class="form-ok" id="fOk">✓ Your message has been sent. Shapon will be in touch within 24–48 hours. Thank you for reaching out.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="contact-ventures">
+  <div class="max-w">
+    <div class="vc-head">Also Find Me At</div>
+    <div class="vc-grid">
+      <a href="films.html" class="vc-card"><div class="vc-num">01</div><div class="vc-name">Films & Cinema</div><div class="vc-desc">The Mrityukhudha Society</div><span class="vc-arr">↗</span></a>
+      <a href="thinkking.html" class="vc-card"><div class="vc-num">02</div><div class="vc-name">Think King</div><div class="vc-desc">360° Creative Agency</div><span class="vc-arr">↗</span></a>
+      <a href="khalnayak.html" class="vc-card"><div class="vc-num">03</div><div class="vc-name">Khalnayak</div><div class="vc-desc">Bangladeshi Clothing Brand</div><span class="vc-arr">↗</span></a>
+      <a href="monk.html" class="vc-card"><div class="vc-num">04</div><div class="vc-name">A Modern Monk</div><div class="vc-desc">Philosophy & Ideas</div><span class="vc-arr">↗</span></a>
+    </div>
+  </div>
+</div>
+
+<footer class="page-footer">
+  <div class="pf-logo">Sha<span>pon</span></div>
+  <div class="pf-copy">© 2025 Shapon. All rights reserved. Dhaka, BD.</div>
+  <a href="index.html" class="pf-back">← Return to Main</a>
+</footer>
+
+<script>
+const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function loop(){rx+=(mx-rx)*0.11;ry+=(my-ry)*0.11;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(loop);})();
+document.querySelectorAll('a,button,.vc-card,.soc').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.transform='translate(-50%,-50%) scale(2.2)';curR.style.width='52px';curR.style.height='52px';curR.style.borderColor='var(--sand)';});
+  el.addEventListener('mouseleave',()=>{cur.style.transform='translate(-50%,-50%) scale(1)';curR.style.width='36px';curR.style.height='36px';curR.style.borderColor='var(--sienna)';});
+});
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>60);
+  const h=document.documentElement.scrollHeight-window.innerHeight;
+  document.getElementById('progress-bar').style.width=(window.scrollY/h*100)+'%';
+});
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.07});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+function sendForm(){
+  const n=document.getElementById('fN').value,e=document.getElementById('fE').value,
+        t=document.getElementById('fT').value,s=document.getElementById('fS').value,
+        m=document.getElementById('fM').value;
+  if(!n||!e||!m){alert('Please fill in your name, email and message.');return;}
+  const sub=s||t||'Portfolio Contact';
+  window.open('mailto:shapon2point4@gmail.com?subject='+encodeURIComponent(sub)+'&body='+encodeURIComponent('Name: '+n+'\nEmail: '+e+'\nType: '+(t||'N/A')+'\n\n'+m));
+  document.getElementById('fOk').style.display='block';
+}
+(function(){
+  const canvas=document.getElementById('contactCanvas');const ctx=canvas.getContext('2d');
+  function resize(){canvas.width=canvas.offsetWidth;canvas.height=canvas.offsetHeight;}
+  resize();window.addEventListener('resize',resize);
+  const pts=[];for(let i=0;i<55;i++) pts.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*1.4+0.3,vx:(Math.random()-.5)*.2,vy:(Math.random()-.5)*.2,a:Math.random()*0.22+0.05});
+  let pmx=canvas.width/2,pmy=canvas.height/2;
+  document.addEventListener('mousemove',e=>{pmx=e.clientX;pmy=e.clientY;});
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    pts.forEach(p=>{const dx=p.x-pmx,dy=p.y-pmy,dist=Math.sqrt(dx*dx+dy*dy);if(dist<100){p.vx+=dx/dist*0.03;p.vy+=dy/dist*0.03;}p.vx*=0.98;p.vy*=0.98;p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=canvas.width;if(p.x>canvas.width)p.x=0;if(p.y<0)p.y=canvas.height;if(p.y>canvas.height)p.y=0;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(200,169,110,${p.a})`;ctx.fill();});
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+document.querySelectorAll('.btn-magnetic').forEach(btn=>{
+  btn.addEventListener('mousemove',e=>{const r=btn.getBoundingClientRect();const x=(e.clientX-r.left-r.width/2)*0.22;const y=(e.clientY-r.top-r.height/2)*0.22;btn.style.transform=`translate(${x}px,${y}px)`;btn.style.transition='transform 0.1s ease';});
+  btn.addEventListener('mouseleave',()=>{btn.style.transform='translate(0,0)';btn.style.transition='transform 0.5s cubic-bezier(0.16,1,0.3,1)';});
+});
+</script>
+</body>
+</html>

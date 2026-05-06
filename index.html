@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="description" content="Shapon — Filmmaker & Entrepreneur from Dhaka, Bangladesh. Specializing in cinematic storytelling, brand strategy, and cultural entrepreneurship.">
+  <meta name="keywords" content="filmmaker, entrepreneur, Dhaka, Bangladesh, cinema, branding, creative director">
+  <meta name="author" content="Shapon">
+  <meta property="og:title" content="Shapon — Filmmaker & Entrepreneur">
+  <meta property="og:description" content="Filmmaker, entrepreneur & cultural storyteller from Dhaka">
+  <meta property="og:image" content="https://yourwebsite.com/og-image.jpg">
+  <meta property="og:url" content="https://yourwebsite.com">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#1A1A14">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#F2EDE4;--cream2:#E8E0D2;--ink:#1A1A14;--ink2:#2A2A20;--forest:#2C4A3E;--forest2:#1E3329;--sienna:#B5522A;--sienna2:#8C3D1C;--moss:#5A7A4F;--sand:#C8A96E;--sand2:#A0854A;--muted:#7A7468;--font-display:'Playfair Display',serif;--font-body:'DM Sans',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--ink);font-family:var(--font-body);font-weight:300;overflow-x:hidden;cursor:none;}
+
+/* SKIP LINK */
+.skip-link{position:absolute;top:-40px;left:6px;background:var(--sienna);color:var(--cream);padding:8px;text-decoration:none;z-index:10000;border-radius:0 0 4px 4px;font-size:0.8rem;}
+.skip-link:focus{top:0;}
+
+/* ── PROGRESS BAR ── */
+#progress-bar{position:fixed;top:0;left:0;height:2px;background:var(--sienna);z-index:9997;width:0%;transition:width 0.1s linear;}
+
+/* ── CURSOR ── */
+.cursor{width:10px;height:10px;background:var(--sienna);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;}
+.cursor-ring{width:36px;height:36px;border:1px solid var(--sienna);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:0.5;transition:width 0.25s,height 0.25s,opacity 0.2s,border-color 0.2s;}
+.cursor-trail{position:fixed;pointer-events:none;z-index:9996;border-radius:50%;transform:translate(-50%,-50%);}
+
+/* ── INTRO POPUP ── */
+#intro{position:fixed;inset:0;z-index:9000;background:var(--ink);display:flex;align-items:center;justify-content:center;flex-direction:column;overflow:hidden;transition:clip-path 1s cubic-bezier(0.76,0,0.24,1);}
+#intro.hide{clip-path:ellipse(120% 0% at 50% 0%);}
+.intro-grain{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:180px;opacity:0.06;pointer-events:none;animation:grainAnim 0.5s steps(2) infinite;}
+@keyframes grainAnim{0%{transform:translate(0,0);}25%{transform:translate(-3px,2px);}50%{transform:translate(2px,-1px);}75%{transform:translate(-1px,3px);}100%{transform:translate(3px,-2px);}}
+.intro-lines{position:absolute;inset:0;pointer-events:none;}
+.intro-line{position:absolute;left:0;right:0;height:1px;background:rgba(242,237,228,0.03);}
+.intro-center{text-align:center;position:relative;z-index:2;}
+.intro-eyebrow{font-size:0.58rem;letter-spacing:0.4em;text-transform:uppercase;color:rgba(200,169,110,0.45);margin-bottom:2rem;opacity:0;transform:translateY(10px);animation:fadeUp 0.8s 0.4s ease forwards;}
+.intro-name{font-family:var(--font-display);font-size:clamp(5rem,18vw,14rem);font-weight:900;font-style:italic;color:var(--cream);line-height:0.85;letter-spacing:-0.04em;overflow:hidden;}
+.intro-name span{display:inline-block;transform:translateY(110%);animation:slideUp 0.9s cubic-bezier(0.16,1,0.3,1) forwards;}
+.intro-name span:nth-child(1){animation-delay:0.1s;}
+.intro-name span:nth-child(2){animation-delay:0.18s;}
+.intro-name span:nth-child(3){animation-delay:0.26s;}
+.intro-name span:nth-child(4){animation-delay:0.34s;}
+.intro-name span:nth-child(5){animation-delay:0.42s;}
+.intro-name span:nth-child(6){animation-delay:0.5s;}
+.intro-divider{width:60px;height:1px;background:var(--sienna);margin:1.8rem auto;opacity:0;animation:fadeIn 0.5s 0.9s ease forwards;}
+.intro-sub{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:rgba(242,237,228,0.3);opacity:0;animation:fadeUp 0.6s 1s ease forwards;}
+.intro-skip{position:absolute;bottom:2.5rem;right:3rem;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(242,237,228,0.2);cursor:none;border:none;background:none;padding:0.5rem;transition:color 0.2s;opacity:0;animation:fadeIn 0.5s 1.5s ease forwards;}
+.intro-skip:hover{color:var(--sand);}
+@keyframes slideUp{to{transform:translateY(0);}}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{to{opacity:1;}}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:1.8rem 3.5rem;transition:padding 0.3s,background 0.3s;}
+nav.scrolled{background:rgba(242,237,228,0.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(26,26,20,0.07);padding:1.1rem 3.5rem;}
+.nav-logo{font-family:var(--font-display);font-size:1.5rem;font-weight:700;color:var(--cream);text-decoration:none;letter-spacing:-0.02em;transition:color 0.3s;}
+nav.scrolled .nav-logo{color:var(--ink);}
+.nav-logo span{color:var(--sienna);font-style:italic;}
+.hamburger{display:flex;flex-direction:column;gap:6px;cursor:none;background:none;border:none;padding:4px;z-index:600;position:relative;}
+.hamburger span{display:block;width:28px;height:1.5px;background:var(--cream);transition:0.35s cubic-bezier(0.16,1,0.3,1);}
+nav.scrolled .hamburger span{background:var(--ink);}
+.hamburger.open span{background:var(--cream) !important;}
+.hamburger.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+.hamburger.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg);}
+
+/* ── MENU OVERLAY ── */
+.menu-overlay{position:fixed;inset:0;z-index:450;background:var(--forest2);display:flex;align-items:center;clip-path:circle(0% at calc(100% - 56px) 44px);transition:clip-path 0.75s cubic-bezier(0.16,1,0.3,1);pointer-events:none;}
+.menu-overlay.open{clip-path:circle(160% at calc(100% - 56px) 44px);pointer-events:all;}
+.menu-inner{padding:6rem 3.5rem;width:100%;max-width:800px;}
+.menu-label{font-size:0.55rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(200,169,110,0.35);margin-bottom:1rem;margin-top:1.5rem;}
+.menu-nav{list-style:none;}
+.menu-nav li{overflow:hidden;margin-bottom:0.2rem;}
+.menu-nav a{display:inline-flex;align-items:center;gap:1rem;font-family:var(--font-display);font-size:clamp(1.5rem,4vw,3rem);font-weight:700;color:var(--cream);text-decoration:none;letter-spacing:-0.03em;line-height:1.1;transform:translateY(110%);transition:transform 0.6s cubic-bezier(0.16,1,0.3,1),color 0.2s;}
+.menu-overlay.open .menu-nav a{transform:translateY(0);}
+.menu-nav a:hover{color:var(--sand);}
+.menu-nav a .m-num{font-size:0.65rem;color:rgba(200,169,110,0.3);font-style:normal;font-family:var(--font-body);}
+.menu-nav li:nth-child(n) a{transition-delay:calc(0.05s * var(--i, 1));}
+.menu-nav li:nth-child(1) a{transition-delay:0.06s;}
+.menu-nav li:nth-child(2) a{transition-delay:0.09s;}
+.menu-nav li:nth-child(3) a{transition-delay:0.12s;}
+.menu-nav li:nth-child(4) a{transition-delay:0.15s;}
+.menu-nav li:nth-child(5) a{transition-delay:0.18s;}
+.menu-nav li:nth-child(6) a{transition-delay:0.21s;}
+.menu-nav li:nth-child(7) a{transition-delay:0.24s;}
+.menu-nav li:nth-child(8) a{transition-delay:0.27s;}
+.menu-nav li:nth-child(9) a{transition-delay:0.30s;}
+.menu-nav li:nth-child(10) a{transition-delay:0.33s;}
+.menu-nav li:nth-child(11) a{transition-delay:0.36s;}
+.menu-nav li:nth-child(12) a{transition-delay:0.39s;}
+.menu-nav li:nth-child(13) a{transition-delay:0.42s;}
+.menu-nav li:nth-child(14) a{transition-delay:0.45s;}
+.menu-nav li:nth-child(15) a{transition-delay:0.48s;}
+.menu-nav li:nth-child(16) a{transition-delay:0.51s;}
+.menu-socials{margin-top:2rem;display:flex;gap:1.2rem;flex-wrap:wrap;}
+.menu-socials a{font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(242,237,228,0.28);text-decoration:none;transition:color 0.2s;}
+.menu-socials a:hover{color:var(--sand);}
+
+/* ── HERO ── */
+#hero{min-height:100vh;display:flex;align-items:flex-end;padding:0 3.5rem 5rem;position:relative;overflow:hidden;background:var(--ink);}
+#heroCanvas{position:absolute;inset:0;pointer-events:none;}
+.hero-grain{position:absolute;inset:0;opacity:0.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px;animation:grainAnim 0.8s steps(2) infinite;pointer-events:none;}
+.hero-bgtext{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--font-display);font-size:clamp(8rem,22vw,20rem);font-weight:900;font-style:italic;color:rgba(255,255,255,0.015);white-space:nowrap;letter-spacing:-0.04em;pointer-events:none;user-select:none;transition:transform 0.1s ease-out;}
+.h-f1{position:absolute;top:14%;right:7%;width:180px;height:180px;border-radius:50%;border:1px solid rgba(181,82,42,0.18);animation:fA 8s ease-in-out infinite;}
+.h-f2{position:absolute;top:36%;right:14%;width:80px;height:80px;background:rgba(181,82,42,0.07);transform:rotate(45deg);animation:fB 6s ease-in-out infinite;}
+.h-f3{position:absolute;top:22%;left:5%;width:120px;height:1px;background:rgba(200,169,110,0.2);animation:fC 7s ease-in-out infinite;}
+.h-f4{position:absolute;bottom:28%;left:9%;width:60px;height:60px;border-radius:50%;border:1px solid rgba(200,169,110,0.14);animation:fB 9s ease-in-out infinite 1s;}
+.h-f5{position:absolute;top:55%;right:5%;width:1px;height:100px;background:rgba(181,82,42,0.15);animation:fC 5s ease-in-out infinite 2s;}
+.h-f6{position:absolute;bottom:40%;left:20%;width:8px;height:8px;border-radius:50%;background:rgba(200,169,110,0.12);animation:fA 10s ease-in-out infinite 0.5s;}
+@keyframes fA{0%,100%{transform:translateY(0);}50%{transform:translateY(-20px);}}
+@keyframes fB{0%,100%{transform:rotate(45deg) translateY(0);}50%{transform:rotate(45deg) translateY(-16px);}}
+@keyframes fC{0%,100%{transform:scaleX(1);}50%{transform:scaleX(1.6);}}
+.hero-eyebrow{position:absolute;top:2.2rem;left:50%;transform:translateX(-50%);font-size:0.58rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(242,237,228,0.25);white-space:nowrap;}
+.hero-content{position:relative;z-index:2;width:100%;}
+.hero-title{font-family:var(--font-display);font-size:clamp(5rem,14vw,12rem);font-weight:900;line-height:0.88;letter-spacing:-0.04em;color:var(--cream);}
+.hero-title .it{font-style:italic;color:var(--sienna);}
+.hero-row{display:flex;justify-content:space-between;align-items:flex-end;margin-top:2rem;border-top:1px solid rgba(242,237,228,0.07);padding-top:1.5rem;}
+.hero-desc{font-size:0.78rem;letter-spacing:0.08em;color:rgba(242,237,228,0.35);text-transform:uppercase;max-width:260px;line-height:1.7;}
+.hero-hint{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(242,237,228,0.18);display:flex;align-items:center;gap:0.8rem;}
+.hero-hint::before{content:'';display:block;width:35px;height:1px;background:rgba(242,237,228,0.12);}
+.hero-ctas{display:flex;gap:1rem;margin-top:2rem;flex-wrap:wrap;}
+.btn{display:inline-block;padding:0.85rem 2rem;font-family:var(--font-body);font-size:0.63rem;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;transition:all 0.3s;cursor:none;border:none;position:relative;overflow:hidden;}
+.btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,0.08);transform:translateX(-101%);transition:transform 0.35s ease;}
+.btn:hover::after{transform:translateX(0);}
+.btn-sienna{background:var(--sienna);color:var(--cream);}
+.btn-sienna:hover{background:var(--sienna2);}
+.btn-forest{background:var(--forest);color:var(--cream);}
+.btn-forest:hover{background:var(--moss);}
+.btn-oc{background:transparent;border:1px solid rgba(242,237,228,0.22);color:var(--cream);}
+.btn-oc:hover{border-color:var(--sand);color:var(--sand);}
+.btn-oi{background:transparent;border:1px solid rgba(26,26,20,0.18);color:var(--ink);}
+.btn-oi:hover{border-color:var(--sienna);color:var(--sienna);}
+
+/* ── SUB-PAGES STRIP ── */
+#subpages{background:var(--ink2);padding:0;position:relative;z-index:3;}
+.subp-strip{display:grid;grid-template-columns:repeat(6,1fr);}
+.subp-card{display:flex;flex-direction:column;justify-content:space-between;padding:2.2rem 2rem;border-right:1px solid rgba(255,255,255,0.04);text-decoration:none;color:inherit;position:relative;overflow:hidden;transition:background 0.35s;min-height:140px;}
+.subp-card:last-child{border-right:none;}
+.subp-card::before{content:'';position:absolute;inset:0;background:var(--sienna);transform:scaleY(0);transform-origin:bottom;transition:transform 0.4s cubic-bezier(0.16,1,0.3,1);}
+.subp-card:hover::before{transform:scaleY(1);}
+.subp-card:hover .subp-num,.subp-card:hover .subp-title,.subp-card:hover .subp-arr{color:var(--cream);position:relative;z-index:1;}
+.subp-num{font-family:var(--font-display);font-size:0.65rem;font-style:italic;color:rgba(242,237,228,0.2);margin-bottom:auto;position:relative;z-index:1;transition:color 0.3s;}
+.subp-title{font-family:var(--font-display);font-size:0.95rem;font-weight:700;color:rgba(242,237,228,0.7);line-height:1.2;position:relative;z-index:1;transition:color 0.3s;}
+.subp-arr{font-size:1rem;color:rgba(242,237,228,0.2);position:relative;z-index:1;transition:color 0.3s,transform 0.2s;margin-top:1rem;align-self:flex-end;}
+.subp-card:hover .subp-arr{transform:translate(4px,-4px);}
+
+/* ── SECTIONS ── */
+section{padding:8rem 3.5rem;}
+.max-w{max-width:1200px;margin:0 auto;}
+.slabel{font-size:0.58rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--sienna);margin-bottom:1rem;}
+.stitle{font-family:var(--font-display);font-size:clamp(2.5rem,5vw,4.5rem);font-weight:700;line-height:1;letter-spacing:-0.03em;margin-bottom:2rem;}
+.stitle em{font-style:italic;color:var(--forest);}
+.sdiv{width:50px;height:2px;background:var(--sienna);margin-bottom:3rem;}
+
+/* ── ABOUT ── */
+#about{background:var(--cream);}
+.about-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:6rem;align-items:start;margin-top:5rem;}
+.about-bignum{font-family:var(--font-display);font-size:9rem;font-weight:900;color:rgba(26,26,20,0.04);line-height:1;margin-bottom:-2.5rem;letter-spacing:-0.05em;}
+.about-p{font-size:1rem;line-height:1.95;color:rgba(26,26,20,0.58);margin-bottom:1.5rem;}
+.about-img{aspect-ratio:3/4;background:var(--forest);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;transition:transform 0.4s ease;}
+.about-img:hover{transform:scale(1.01);}
+.about-img-l{font-family:var(--font-display);font-size:12rem;font-weight:900;font-style:italic;color:rgba(255,255,255,0.05);}
+.about-tag{position:absolute;bottom:2rem;left:2rem;right:2rem;background:rgba(242,237,228,0.93);padding:1.2rem 1.5rem;backdrop-filter:blur(8px);}
+.about-tag .name{font-family:var(--font-display);font-size:1.4rem;font-weight:700;letter-spacing:-0.02em;color:var(--ink);}
+.about-tag .role{font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--sienna);margin-top:0.2rem;}
+.chips{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:2.5rem;}
+.chip{font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.4rem 1rem;border:1px solid rgba(26,26,20,0.12);color:var(--muted);transition:all 0.2s;}
+.chip:hover{border-color:var(--sienna);color:var(--sienna);}
+
+/* ── VENTURES ── */
+#ventures{background:var(--ink2);}
+#ventures .stitle{color:var(--cream);}
+#ventures .slabel{color:var(--sand);}
+.venture-row{display:grid;grid-template-columns:70px 1fr 28px;align-items:center;gap:3rem;padding:2.5rem 0;border-top:1px solid rgba(242,237,228,0.06);text-decoration:none;color:inherit;transition:padding 0.35s,margin 0.35s,background 0.35s;cursor:none;}
+.venture-row:last-child{border-bottom:1px solid rgba(242,237,228,0.06);}
+.venture-row:hover{padding-left:1.5rem;padding-right:1.5rem;margin:0 -1.5rem;background:rgba(255,255,255,0.02);}
+.v-num{font-family:var(--font-display);font-size:0.85rem;font-style:italic;color:rgba(242,237,228,0.15);}
+.v-name{font-family:var(--font-display);font-size:clamp(1.3rem,2.5vw,2rem);font-weight:700;color:var(--cream);letter-spacing:-0.02em;margin-bottom:0.25rem;}
+.v-sub{font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--sand);margin-bottom:0.4rem;}
+.v-desc{font-size:0.8rem;color:rgba(242,237,228,0.35);line-height:1.7;max-width:480px;}
+.v-arr{font-size:1.3rem;color:rgba(242,237,228,0.15);transition:color 0.2s,transform 0.2s;}
+.venture-row:hover .v-arr{color:var(--sand);transform:translate(5px,-5px);}
+
+/* ── PORTFOLIO ── */
+#portfolio{background:var(--cream2);}
+.port-filter{display:flex;gap:0.7rem;margin-bottom:3rem;flex-wrap:wrap;}
+.fb{background:transparent;border:1px solid rgba(26,26,20,0.13);color:var(--muted);padding:0.42rem 1rem;font-family:var(--font-body);font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;cursor:none;transition:all 0.2s;}
+.fb.active,.fb:hover{border-color:var(--forest);color:var(--forest);background:rgba(44,74,62,0.05);}
+.port-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:3rem;}
+.port-item{position:relative;overflow:hidden;cursor:none;background:var(--forest);}
+.port-item:nth-child(2n){background:var(--ink);}
+.port-item:nth-child(3n){background:var(--sienna2);}
+.port-item:nth-child(1){grid-column:span 2;}
+.port-ph{aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:4rem;color:rgba(255,255,255,0.04);transition:transform 0.5s ease;}
+.port-item:nth-child(1) .port-ph{aspect-ratio:2/1;}
+.port-item:hover .port-ph{transform:scale(1.04);}
+.port-ov{position:absolute;inset:0;background:rgba(26,26,20,0.9);opacity:0;transition:opacity 0.32s;display:flex;flex-direction:column;justify-content:flex-end;padding:1.8rem;}
+.port-item:hover .port-ov{opacity:1;}
+.p-cat{font-size:0.56rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--sand);margin-bottom:0.4rem;}
+.p-title{font-family:var(--font-display);font-size:1.15rem;color:var(--cream);}
+
+/* ── SERVICES ── */
+#services{background:var(--forest);}
+#services .stitle{color:var(--cream);}
+#services .slabel{color:var(--sand);}
+.serv-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;margin-top:5rem;background:rgba(255,255,255,0.04);}
+.serv-box{background:var(--forest);padding:3.5rem 3rem;transition:background 0.35s;}
+.serv-box:hover{background:var(--forest2);}
+.serv-n{font-family:var(--font-display);font-size:0.78rem;font-style:italic;color:rgba(200,169,110,0.4);margin-bottom:2rem;}
+.serv-name{font-family:var(--font-display);font-size:1.55rem;font-weight:700;color:var(--cream);margin-bottom:1rem;letter-spacing:-0.02em;}
+.serv-desc{font-size:0.8rem;line-height:1.85;color:rgba(242,237,228,0.4);}
+.serv-tags{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:2rem;}
+.stag{font-size:0.56rem;letter-spacing:0.12em;text-transform:uppercase;border:1px solid rgba(200,169,110,0.16);color:rgba(200,169,110,0.5);padding:0.22rem 0.65rem;}
+
+/* ── LIBRARY ── */
+#library{background:var(--cream);position:relative;}
+.lib-head{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:5rem;}
+.lib-intro{font-size:1rem;line-height:1.9;color:rgba(26,26,20,0.55);max-width:430px;}
+.lib-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;}
+.lib-feature{grid-column:span 3;background:var(--forest2);display:grid;grid-template-columns:1fr 1fr;}
+.lib-feat-l{padding:3.5rem;}
+.lib-feat-r{padding:3.5rem;border-left:1px solid rgba(255,255,255,0.04);display:flex;flex-direction:column;justify-content:center;}
+.lib-feat-ey{font-size:0.56rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--sand);margin-bottom:1rem;}
+.lib-feat-t{font-family:var(--font-display);font-size:clamp(1.8rem,3vw,2.8rem);font-weight:900;font-style:italic;color:var(--cream);line-height:1;letter-spacing:-0.03em;margin-bottom:1.5rem;}
+.lib-feat-b{font-size:0.82rem;line-height:1.9;color:rgba(242,237,228,0.45);}
+.lib-card{background:var(--ink);text-decoration:none;display:block;cursor:none;position:relative;overflow:hidden;transition:transform 0.35s ease;}
+.lib-card:hover{transform:translateY(-4px);}
+.lib-spine{position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--sienna);}
+.lib-card:nth-child(3) .lib-spine{background:var(--forest);}
+.lib-card:nth-child(4) .lib-spine{background:var(--sand2);}
+.lib-inner{padding:2.5rem 2rem 2.5rem 2.5rem;}
+.lib-type{font-size:0.56rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--sand);margin-bottom:1.5rem;}
+.lib-title{font-family:var(--font-display);font-size:1.2rem;font-weight:700;color:var(--cream);line-height:1.2;margin-bottom:0.9rem;letter-spacing:-0.02em;}
+.lib-desc{font-size:0.76rem;line-height:1.8;color:rgba(242,237,228,0.4);}
+.lib-foot{margin-top:2rem;display:flex;justify-content:space-between;align-items:center;}
+.lib-tag{font-size:0.56rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(242,237,228,0.2);}
+.lib-arr{color:var(--sienna);font-size:1rem;transition:transform 0.2s;}
+.lib-card:hover .lib-arr{transform:translate(4px,-4px);}
+
+/* ── MONK ── */
+#monk{background:var(--sand2);position:relative;overflow:hidden;}
+.monk-bgtext{position:absolute;bottom:-3rem;right:-1rem;font-family:var(--font-display);font-size:clamp(7rem,16vw,14rem);font-weight:900;color:rgba(26,26,20,0.06);letter-spacing:-0.05em;pointer-events:none;line-height:1;}
+.monk-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;}
+.monk-grid .slabel{color:rgba(26,26,20,0.4);}
+.monk-grid .stitle{color:var(--ink);}
+.monk-grid .stitle em{color:var(--forest);}
+.monk-desc{font-size:1rem;line-height:1.9;color:rgba(26,26,20,0.6);margin-bottom:2rem;}
+.monk-panel{background:var(--ink);padding:3.5rem;position:relative;}
+.monk-panel::before{content:'৳';position:absolute;top:1.5rem;right:2rem;font-size:3rem;color:rgba(200,169,110,0.08);}
+.monk-post{padding:1.4rem 0;border-bottom:1px solid rgba(242,237,228,0.04);display:flex;gap:1.2rem;align-items:flex-start;}
+.monk-post:first-child{padding-top:0;}
+.monk-post:last-child{border-bottom:none;padding-bottom:0;}
+.mp-icon{width:34px;height:34px;background:rgba(200,169,110,0.07);display:flex;align-items:center;justify-content:center;font-size:0.7rem;color:var(--sand);flex-shrink:0;}
+.mp-lbl{font-size:0.56rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--sand);margin-bottom:0.3rem;}
+.mp-title{font-family:var(--font-display);font-size:0.95rem;color:var(--cream);line-height:1.3;}
+.monk-link{display:inline-flex;align-items:center;gap:0.7rem;margin-top:3rem;background:var(--forest);color:var(--cream);text-decoration:none;padding:0.9rem 1.8rem;font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;transition:background 0.2s;cursor:none;}
+.monk-link:hover{background:var(--moss);}
+
+/* ── SKILLS ── */
+#skills{background:var(--cream2);}
+.skills-cols{display:grid;grid-template-columns:1fr 1fr;gap:6rem;margin-top:5rem;}
+.skill-item{margin-bottom:2rem;}
+.skill-name{font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink);margin-bottom:0.8rem;display:flex;justify-content:space-between;}
+.skill-pct{color:var(--sienna);}
+.skill-track{height:1.5px;background:rgba(26,26,20,0.09);}
+.skill-fill{height:100%;background:var(--forest);transform:scaleX(0);transform-origin:left;transition:transform 1.6s cubic-bezier(0.16,1,0.3,1);}
+
+/* ── BLOG ── */
+#blog{background:var(--ink);}
+#blog .stitle{color:var(--cream);}
+#blog .slabel{color:var(--sand);}
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:5rem;}
+.blog-card{background:var(--ink2);text-decoration:none;color:inherit;display:block;cursor:none;transition:background 0.3s,transform 0.35s;}
+.blog-card:hover{background:rgba(44,74,62,0.4);transform:translateY(-4px);}
+.blog-top{aspect-ratio:16/9;background:var(--forest);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:3rem;color:rgba(255,255,255,0.04);position:relative;overflow:hidden;}
+.blog-top-inner{transition:transform 0.5s ease;}
+.blog-card:hover .blog-top-inner{transform:scale(1.05);}
+.blog-num{position:absolute;bottom:0.8rem;left:1.2rem;font-family:var(--font-display);font-size:0.72rem;font-style:italic;color:rgba(242,237,228,0.2);}
+.blog-body{padding:2rem;}
+.blog-meta{font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--sand);margin-bottom:0.7rem;}
+.blog-title{font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--cream);line-height:1.3;margin-bottom:0.9rem;letter-spacing:-0.01em;}
+.blog-exc{font-size:0.76rem;line-height:1.8;color:rgba(242,237,228,0.3);}
+.blog-lnk{display:inline-flex;align-items:center;gap:0.4rem;margin-top:1.1rem;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--sand);}
+
+/* ── RESUME ── */
+#resume{background:var(--cream);}
+.resume-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;margin-top:5rem;}
+.r-head{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--sienna);margin-bottom:2.5rem;padding-bottom:1rem;border-bottom:1px solid rgba(26,26,20,0.09);}
+.r-item{margin-bottom:2.8rem;padding-left:1.5rem;border-left:2px solid rgba(44,74,62,0.12);transition:border-color 0.3s,padding-left 0.3s;}
+.r-item:hover{border-left-color:var(--forest);padding-left:2rem;}
+.r-date{font-size:0.6rem;letter-spacing:0.1em;color:var(--muted);margin-bottom:0.3rem;}
+.r-role{font-family:var(--font-display);font-size:1.15rem;font-weight:700;margin-bottom:0.2rem;letter-spacing:-0.01em;}
+.r-org{font-size:0.68rem;color:var(--sienna);letter-spacing:0.08em;margin-bottom:0.6rem;}
+.r-desc{font-size:0.76rem;line-height:1.8;color:rgba(26,26,20,0.48);}
+
+/* ── CONTACT ── */
+#contact{background:var(--forest2);}
+#contact .stitle{color:var(--cream);}
+#contact .slabel{color:var(--sand);}
+.contact-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:6rem;margin-top:5rem;}
+.c-item{display:flex;gap:1.5rem;margin-bottom:2.5rem;align-items:flex-start;}
+.c-icon{width:42px;height:42px;border:1px solid rgba(200,169,110,0.15);display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;color:var(--sand);}
+.c-lbl{font-size:0.56rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(200,169,110,0.4);margin-bottom:0.25rem;}
+.c-val{font-size:0.85rem;color:var(--cream);}
+.c-val a{color:var(--cream);text-decoration:none;transition:color 0.2s;}
+.c-val a:hover{color:var(--sand);}
+.soc-row{display:flex;gap:0.7rem;margin-top:2.5rem;flex-wrap:wrap;}
+.soc{width:42px;height:42px;border:1px solid rgba(242,237,228,0.07);display:flex;align-items:center;justify-content:center;color:rgba(242,237,228,0.28);text-decoration:none;font-size:0.6rem;font-weight:500;transition:all 0.2s;cursor:none;}
+.soc:hover{border-color:var(--sand);color:var(--sand);transform:translateY(-2px);}
+.fg{margin-bottom:1.3rem;}
+.fg label{display:block;font-size:0.56rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(200,169,110,0.4);margin-bottom:0.5rem;}
+.fg input,.fg textarea{width:100%;background:rgba(242,237,228,0.02);border:1px solid rgba(242,237,228,0.07);color:var(--cream);padding:0.82rem 1rem;font-family:var(--font-body);font-size:0.85rem;font-weight:300;outline:none;transition:border-color 0.2s,background 0.2s;resize:none;}
+.fg input:focus,.fg textarea:focus{border-color:rgba(200,169,110,0.3);background:rgba(242,237,228,0.04);}
+.fg input::placeholder,.fg textarea::placeholder{color:rgba(242,237,228,0.15);}
+.form-ok{display:none;padding:0.9rem;background:rgba(90,122,79,0.22);border:1px solid rgba(90,122,79,0.35);font-size:0.76rem;color:var(--cream);margin-top:0.8rem;}
+
+/* BACK TO TOP */
+.back-to-top{position:fixed;bottom:2rem;right:2rem;width:50px;height:50px;background:var(--sienna);color:var(--cream);border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;text-decoration:none;z-index:1000;opacity:0;visibility:hidden;transition:all 0.3s;cursor:none;}
+.back-to-top.show{opacity:1;visibility:visible;}
+.back-to-top:hover{background:var(--sienna2);transform:translateY(-2px);}
+
+/* ── FOOTER ── */
+footer{background:var(--ink);padding:2.5rem 3.5rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,0.03);}
+.foot-logo{font-family:var(--font-display);font-size:1.3rem;font-weight:900;color:var(--cream);font-style:italic;}
+.foot-logo span{color:var(--sienna);}
+.foot-copy{font-size:0.63rem;color:rgba(255,255,255,0.15);letter-spacing:0.05em;}
+.foot-links{display:flex;gap:1.8rem;}
+.foot-links a{font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.2);text-decoration:none;transition:color 0.2s;}
+.foot-links a:hover{color:var(--sand);}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(36px);transition:opacity 0.9s ease,transform 0.9s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}
+.reveal-delay-2{transition-delay:0.2s;}
+.reveal-delay-3{transition-delay:0.3s;}
+
+/* ── MOBILE ── */
+@media(max-width:900px){
+  nav{padding:1.1rem 1.5rem;}
+  nav.scrolled{padding:0.9rem 1.5rem;}
+  section{padding:5rem 1.5rem;}
+  #hero{padding:0 1.5rem 4rem;}
+  .about-grid,.monk-grid,.contact-grid,.resume-grid,.lib-head,.lib-feature,.skills-cols{grid-template-columns:1fr;gap:2.5rem;}
+  .serv-grid,.blog-grid,.lib-grid,.port-grid{grid-template-columns:1fr;}
+  .port-item:nth-child(1){grid-column:span 1;}
+  .lib-feature{grid-column:span 1;}
+  .venture-row{grid-template-columns:40px 1fr 18px;gap:1rem;}
+  footer{flex-direction:column;gap:1.2rem;text-align:center;}
+  .cursor,.cursor-ring{display:none;}
+  body{cursor:auto;}
+  .subp-strip{grid-template-columns:repeat(3,1fr);}
+  .subp-card{border-bottom:1px solid rgba(255,255,255,0.04);}
+}
+@media(max-width:600px){
+  .subp-strip{grid-template-columns:repeat(2,1fr);}
+  .menu-inner{padding:6rem 1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- SKIP LINK -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- INTRO POPUP -->
+<div id="intro">
+  <div class="intro-grain"></div>
+  <div id="introLines"></div>
+  <div class="intro-center">
+    <p class="intro-eyebrow">Dhaka, Bangladesh · Portfolio</p>
+    <div class="intro-name" id="introName">
+      <span>S</span><span>h</span><span>a</span><span>p</span><span>o</span><span>n</span>
+    </div>
+    <div class="intro-divider"></div>
+    <p class="intro-sub">Filmmaker · Entrepreneur · Storyteller</p>
+  </div>
+  <button class="intro-skip" id="introSkip">Skip Intro ↗</button>
+</div>
+
+<!-- SCROLL PROGRESS -->
+<div id="progress-bar"></div>
+
+<!-- CURSOR -->
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curR"></div>
+
+<!-- MENU OVERLAY -->
+<div class="menu-overlay" id="menuOverlay">
+  <div class="menu-inner">
+    <p class="menu-label">Pages</p>
+    <ul class="menu-nav">
+      <li><a href="films.html"><span class="m-num">01</span> Films</a></li>
+      <li><a href="thinkking.html"><span class="m-num">02</span> Think King</a></li>
+      <li><a href="khalnayak.html"><span class="m-num">03</span> Khalnayak</a></li>
+      <li><a href="library.html"><span class="m-num">04</span> The Library</a></li>
+      <li><a href="monk.html"><span class="m-num">05</span> Modern Monk</a></li>
+      <li><a href="contact.html"><span class="m-num">06</span> Contact</a></li>
+    </ul>
+    <p class="menu-label" style="margin-top:2rem;">This Page</p>
+    <ul class="menu-nav">
+      <li><a href="#about" onclick="closeMenu()">About</a></li>
+      <li><a href="#ventures" onclick="closeMenu()">Ventures</a></li>
+      <li><a href="#portfolio" onclick="closeMenu()">Portfolio</a></li>
+      <li><a href="#skills" onclick="closeMenu()">Skills</a></li>
+    </ul>
+    <div class="menu-socials">
+      <a href="https://www.facebook.com/shapon2point4" target="_blank">Facebook</a>
+      <a href="https://www.instagram.com/shapon2point4" target="_blank">Instagram</a>
+      <a href="https://www.facebook.com/thinkkingbd" target="_blank">Think King</a>
+      <a href="https://www.facebook.com/khalnayakbeyou" target="_blank">Khalnayak</a>
+      <a href="https://www.facebook.com/modernmonkshapon" target="_blank">Modern Monk</a>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#main-content" class="nav-logo">Sha<span>pon</span></a>
+  <button class="hamburger" id="ham" onclick="toggleMenu()" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="main-content">
+  <canvas id="heroCanvas"></canvas>
+  <div class="hero-grain"></div>
+  <div class="hero-bgtext" id="heroBgText">SHAPON</div>
+  <div class="h-f1 parallax-el" data-depth="0.02"></div>
+  <div class="h-f2 parallax-el" data-depth="0.035"></div>
+  <div class="h-f3 parallax-el" data-depth="0.015"></div>
+  <div class="h-f4 parallax-el" data-depth="0.025"></div>
+  <div class="h-f5 parallax-el" data-depth="0.03"></div>
+  <div class="h-f6 parallax-el" data-depth="0.04"></div>
+  <p class="hero-eyebrow">Filmmaker · Entrepreneur · Creative · Dhaka, Bangladesh</p>
+  <div class="hero-content">
+    <h1 class="hero-title"><span id="scrambleTarget">Sha</span><span class="it">pon</span></h1>
+    <div class="hero-row">
+      <p class="hero-desc">Filmmaker, entrepreneur & cultural storyteller from Dhaka</p>
+      <p class="hero-hint">Scroll to explore</p>
+    </div>
+    <div class="hero-ctas">
+      <a href="#portfolio" class="btn btn-sienna btn-magnetic">Selected Work</a>
+      <a href="films.html" class="btn btn-forest btn-magnetic">Films</a>
+      <a href="contact.html" class="btn btn-oc btn-magnetic">Collaborate</a>
+    </div>
+  </div>
+</section>
+
+<!-- SUB-PAGES STRIP -->
+<div id="subpages">
+  <div class="subp-strip">
+    <a href="films.html" class="subp-card">
+      <span class="subp-num">01</span>
+      <span class="subp-title">Films &amp; Cinema</span>
+      <span class="subp-arr">↗</span>
+    </a>
+    <a href="thinkking.html" class="subp-card">
+      <span class="subp-num">02</span>
+      <span class="subp-title">Think King</span>
+      <span class="subp-arr">↗</span>
+    </a>
+    <a href="khalnayak.html" class="subp-card">
+      <span class="subp-num">03</span>
+      <span class="subp-title">Khalnayak</span>
+      <span class="subp-arr">↗</span>
+    </a>
+    <a href="library.html" class="subp-card">
+      <span class="subp-num">04</span>
+      <span class="subp-title">The Library</span>
+      <span class="subp-arr">↗</span>
+    </a>
+    <a href="monk.html" class="subp-card">
+      <span class="subp-num">05</span>
+      <span class="subp-title">Modern Monk</span>
+      <span class="subp-arr">↗</span>
+    </a>
+    <a href="contact.html" class="subp-card">
+      <span class="subp-num">06</span>
+      <span class="subp-title">Contact</span>
+      <span class="subp-arr">↗</span>
+    </a>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="max-w">
+    <p class="slabel reveal">Who I Am</p>
+    <h2 class="stitle reveal">Filmmaker &amp; <em>Entrepreneur</em></h2>
+    <div class="sdiv reveal"></div>
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="about-bignum">01</div>
+        <p class="about-p">I'm Shapon — a filmmaker, entrepreneur, and creative mind based in Dhaka, Bangladesh. My work sits at the intersection of cinema, culture, and commerce, with a deep commitment to Bangladeshi storytelling and identity.</p>
+        <p class="about-p">Through The Mrityukhudha Society, I direct short films and documentaries that draw from the rich visual language of 70s Bengali cinema. At Think King, I co-lead a 360° creative agency that helps brands find their authentic voice.</p>
+        <p class="about-p">Khalnayak is a clothing brand born of cinema and cultural memory. And through A Modern Monk, I explore ideas at the crossroads of philosophy, learning, and creative living.</p>
+        <div class="chips">
+          <span class="chip">Filmmaker</span>
+          <span class="chip">Entrepreneur</span>
+          <span class="chip">Creative Director</span>
+          <span class="chip">Cultural Storyteller</span>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="about-img">
+          <div class="about-img-l">S</div>
+          <div class="about-tag">
+            <div class="name">Shapon</div>
+            <div class="role">Filmmaker & Co-Founder · Dhaka, BD</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VENTURES -->
+<section id="ventures">
+  <div class="max-w">
+    <p class="slabel reveal">My Ventures</p>
+    <h2 class="stitle reveal">Four worlds,<br><em>one vision</em></h2>
+    <a href="https://www.facebook.com/mrityukhudhasociety" target="_blank" class="venture-row reveal">
+      <div class="v-num">01</div>
+      <div><div class="v-name">The Mrityukhudha Society</div><div class="v-sub">Filmmaker</div><div class="v-desc">A cinematic endeavour rooted in raw storytelling, cultural exploration, and bold visual language.</div></div>
+      <div class="v-arr">↗</div>
+    </a>
+    <a href="https://www.facebook.com/thinkkingbd" target="_blank" class="venture-row reveal">
+      <div class="v-num">02</div>
+      <div><div class="v-name">Think King</div><div class="v-sub">Co-Founder · 360° Creative Agency, Dhaka</div><div class="v-desc">Full-service creative agency with in-house studio — strategy, film, design, and brand under one roof.</div></div>
+      <div class="v-arr">↗</div>
+    </a>
+    <a href="https://www.facebook.com/khalnayakbeyou" target="_blank" class="venture-row reveal">
+      <div class="v-num">03</div>
+      <div><div class="v-name">Khalnayak</div><div class="v-sub">Co-Founder · Bangladeshi Clothing Brand</div><div class="v-desc">A clothing brand born of cinema and culture — fashion as storytelling, rooted in Bangladeshi film heritage.</div></div>
+      <div class="v-arr">↗</div>
+    </a>
+    <a href="https://www.facebook.com/modernmonkshapon" target="_blank" class="venture-row reveal">
+      <div class="v-num">04</div>
+      <div><div class="v-name">A Modern Monk</div><div class="v-sub">Content Creator · Ideas & Learning</div><div class="v-desc">A platform exploring philosophy, learning, and creative living for the thinking mind.</div></div>
+      <div class="v-arr">↗</div>
+    </a>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="max-w">
+    <p class="slabel reveal">Selected Works</p>
+    <h2 class="stitle reveal">Portfolio</h2>
+    <div class="port-filter reveal">
+      <button class="fb active" onclick="filterWork('all',this)">All</button>
+      <button class="fb" onclick="filterWork('film',this)">Film</button>
+      <button class="fb" onclick="filterWork('brand',this)">Brand</button>
+      <button class="fb" onclick="filterWork('fashion',this)">Fashion</button>
+    </div>
+    <div class="port-grid" id="portGrid">
+      <div class="port-item" data-cat="film"><div class="port-ph">◈</div><div class="port-ov"><div class="p-cat">Film · Direction</div><div class="p-title">The Hunger of Death — Short Film</div></div></div>
+      <div class="port-item" data-cat="brand"><div class="port-ph">◈</div><div class="port-ov"><div class="p-cat">Brand · Identity</div><div class="p-title">Think King Brand Campaign</div></div></div>
+      <div class="port-item" data-cat="fashion"><div class="port-ph">◈</div><div class="port-ov"><div class="p-cat">Fashion · Editorial</div><div class="p-title">Khalnayak Season 01</div></div></div>
+      <div class="port-item" data-cat="film"><div class="port-ph">◈</div><div class="port-ov"><div class="p-cat">Film · Documentary</div><div class="p-title">Dhaka Nocturne</div></div></div>
+      <div class="port-item" data-cat="brand"><div class="port-ph">◈</div><div class="port-ov"><div class="p-cat">Brand · Visual</div><div class="p-title">Studio Campaign 2024</div></div></div>
+      <div class="port-item" data-cat="fashion"><div class="port-ph">◈</div><div class="port-ov"><div class="p-cat">Fashion · Culture</div><div class="p-title">Cinema Heritage Collection</div></div></div>
+    </div>
+    <div style="text-align:center;margin-top:3rem;">
+      <a href="films.html" class="btn btn-oi btn-magnetic">View All Films ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="max-w">
+    <p class="slabel reveal">What I Offer</p>
+    <h2 class="stitle reveal">Creative<br><em>Services</em></h2>
+    <div class="serv-grid">
+      <div class="serv-box reveal"><div class="serv-n">01 /</div><div class="serv-name">Film Direction & Production</div><div class="serv-desc">From concept to final cut — narrative films, documentaries, short films, and branded content with a cinematic voice rooted in Bangladeshi culture and global sensibility.</div><div class="serv-tags"><span class="stag">Direction</span><span class="stag">Screenwriting</span><span class="stag">Production</span></div></div>
+      <div class="serv-box reveal reveal-delay-1"><div class="serv-n">02 /</div><div class="serv-name">Brand Strategy & Identity</div><div class="serv-desc">Through Think King's 360° framework, I help brands develop coherent visual and narrative identities — from naming and positioning to full creative campaigns.</div><div class="serv-tags"><span class="stag">Branding</span><span class="stag">Strategy</span><span class="stag">Design</span></div></div>
+      <div class="serv-box reveal reveal-delay-2"><div class="serv-n">03 /</div><div class="serv-name">Commercial & Campaign Direction</div><div class="serv-desc">High-impact commercial filmmaking for brands who want storytelling that sells. Video ads, social content, and editorial campaigns with genuine artistic depth.</div><div class="serv-tags"><span class="stag">Commercials</span><span class="stag">Social</span><span class="stag">Editing</span></div></div>
+      <div class="serv-box reveal reveal-delay-3"><div class="serv-n">04 /</div><div class="serv-name">Creative Consulting</div><div class="serv-desc">Advisory services for startups, cultural projects, and creative businesses. An entrepreneurial and artistic lens to help founders build ventures with soul.</div><div class="serv-tags"><span class="stag">Consulting</span><span class="stag">Creative Direction</span><span class="stag">Mentorship</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- LIBRARY -->
+<section id="library">
+  <div class="max-w">
+    <div class="lib-head">
+      <div class="reveal"><p class="slabel">The Intellectual Side</p><h2 class="stitle">The <em>Library</em></h2><div class="sdiv"></div></div>
+      <div class="reveal"><p class="lib-intro">Great cinema is always rooted in literature, philosophy, and cultural memory. This is where I explore the intersection of 70s Bengali heritage, the dreamlike world of <em>Swapner Sampad</em>, and the books, films, and ideas that shape my creative work.</p></div>
+    </div>
+    <div class="lib-grid">
+      <div class="lib-feature reveal">
+        <div class="lib-feat-l">
+          <div class="lib-feat-ey">Featured Meditation</div>
+          <div class="lib-feat-t">Swapner<br>Sampad</div>
+        </div>
+        <div class="lib-feat-r">
+          <div class="lib-feat-b">A personal meditation on dreams as cultural wealth — drawing from the rich visual language of 70s Bengali cinema, folk literature, and the mythic imagination that lives in Bangladeshi storytelling.</div>
+          <a href="library.html" class="btn btn-forest" style="margin-top:2rem;display:inline-block;">Read More</a>
+        </div>
+      </div>
+      <a href="library.html" class="lib-card reveal">
+        <div class="lib-spine"></div>
+        <div class="lib-inner">
+          <div class="lib-type">Reading List · Cinema</div>
+          <div class="lib-title">70s Bengali Cinema: The Golden Inheritance</div>
+          <div class="lib-desc">A curated exploration of the films, directors, and visual grammar that defined an era.</div>
+          <div class="lib-foot"><span class="lib-tag">Film · Heritage</span><span class="lib-arr">↗</span></div>
+        </div>
+      </a>
+      <a href="library.html" class="lib-card reveal">
+        <div class="lib-spine"></div>
+        <div class="lib-inner">
+          <div class="lib-type">Essay · Literature</div>
+          <div class="lib-title">When Literature Becomes a Lens</div>
+          <div class="lib-desc">On how Bengali prose fiction informs the way I frame shots, write characters, and choose silence over dialogue.</div>
+          <div class="lib-foot"><span class="lib-tag">Literature · Process</span><span class="lib-arr">↗</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- MONK -->
+<section id="monk">
+  <div class="monk-bgtext">MONK</div>
+  <div class="max-w">
+    <div class="monk-grid">
+      <div class="reveal">
+        <p class="slabel">Content & Ideas</p>
+        <h2 class="stitle">A Modern<br><em>Monk</em></h2>
+        <div class="sdiv"></div>
+        <p class="monk-desc">A page about learning, philosophy, and living creatively in the modern world. Thoughts about how to think, how to live, and how to keep growing.</p>
+        <a href="monk.html" class="monk-link">Explore A Modern Monk ↗</a>
+      </div>
+      <div class="reveal">
+        <div class="monk-panel">
+          <div class="monk-post"><div class="mp-icon">✦</div><div><div class="mp-lbl">Philosophy · Thinking</div><div class="mp-title">On Solitude as a Creative Practice</div></div></div>
+          <div class="monk-post"><div class="mp-icon">✦</div><div><div class="mp-lbl">Learning · Growth</div><div class="mp-title">Why Reading Slowly is a Radical Act</div></div></div>
+          <div class="monk-post"><div class="mp-icon">✦</div><div><div class="mp-lbl">Culture · Identity</div><div class="mp-title">The Wisdom Hidden in 70s Bangla Folk Songs</div></div></div>
+          <div class="monk-post"><div class="mp-icon">✦</div><div><div class="mp-lbl">Entrepreneurship · Mindset</div><div class="mp-title">Building Things with Intention, Not Urgency</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="max-w">
+    <p class="slabel reveal">Expertise</p>
+    <h2 class="stitle reveal">Skills &amp; <em>Craft</em></h2>
+    <div class="skills-cols" id="skillsCols">
+      <div>
+        <div class="skill-item reveal"><div class="skill-name">Film Direction <span class="skill-pct">95%</span></div><div class="skill-track"><div class="skill-fill" data-pct="0.95"></div></div></div>
+        <div class="skill-item reveal"><div class="skill-name">Screenwriting <span class="skill-pct">90%</span></div><div class="skill-track"><div class="skill-fill" data-pct="0.90"></div></div></div>
+        <div class="skill-item reveal"><div class="skill-name">Cinematography <span class="skill-pct">88%</span></div><div class="skill-track"><div class="skill-fill" data-pct="0.88"></div></div></div>
+        <div class="skill-item reveal"><div class="skill-name">Visual Storytelling <span class="skill-pct">95%</span></div><div class="skill-track"><div class="skill-fill" data-pct="0.95"></div></div></div>
+      </div>
+      <div>
+        <div class="skill-item reveal"><div class="skill-name">Creative Direction <span class="skill-pct">92%</span></div><div class="skill-track"><div class="skill-fill" data-pct="0.92"></div></div></div>
+        <div class="skill-item reveal"><div class="skill-name">Brand Strategy <span class="skill-pct">85%</span></div><div class="skill-track"><div class="skill-fill" data-pct="0.85"></div></div></div>
+        <div class="skill-item reveal"><div class="skill-name">Video Editing <span class="skill-pct">87%</span></div><div class="skill-track"><div class="skill-fill" data-pct="0.87"></div></div></div>
+        <div class="skill-item reveal"><div class="skill-name">Entrepreneurship <span class="skill-pct">88%</span></div><div class="skill-track"><div class="skill-fill" data-pct="0.88"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog">
+  <div class="max-w">
+    <p class="slabel reveal">Thoughts</p>
+    <h2 class="stitle reveal">From the <em>Journal</em></h2>
+    <div class="blog-grid">
+      <a href="library.html" class="blog-card reveal">
+        <div class="blog-top"><div class="blog-top-inner" style="font-family:var(--font-display);font-size:3rem;color:rgba(255,255,255,0.04);">◈</div><span class="blog-num">01</span></div>
+        <div class="blog-body"><div class="blog-meta">Filmmaking · Apr 2025</div><div class="blog-title">Why Bangladeshi Cinema Must Reclaim Its Own Mythology</div><div class="blog-exc">Our stories are rich, ancient, and largely untold on the global screen. Here's why that needs to change.</div><div class="blog-lnk">Read More →</div></div>
+      </a>
+      <a href="thinkking.html" class="blog-card reveal">
+        <div class="blog-top"><div class="blog-top-inner" style="font-family:var(--font-display);font-size:3rem;color:rgba(255,255,255,0.04);">◈</div><span class="blog-num">02</span></div>
+        <div class="blog-body"><div class="blog-meta">Entrepreneurship · Mar 2025</div><div class="blog-title">Building a Creative Agency in Dhaka: Lessons from Think King</div><div class="blog-exc">What it really takes to build a 360° agency in one of South Asia's most energetic cities.</div><div class="blog-lnk">Read More →</div></div>
+      </a>
+      <a href="khalnayak.html" class="blog-card reveal">
+        <div class="blog-top"><div class="blog-top-inner" style="font-family:var(--font-display);font-size:3rem;color:rgba(255,255,255,0.04);">◈</div><span class="blog-num">03</span></div>
+        <div class="blog-body"><div class="blog-meta">Culture · Feb 2025</div><div class="blog-title">Khalnayak: When Fashion Becomes a Cultural Act</div><div class="blog-exc">Clothing that references Bangladeshi cinema isn't just nostalgia — it's a statement about who we are.</div><div class="blog-lnk">Read More →</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- RESUME -->
+<section id="resume">
+  <div class="max-w">
+    <p class="slabel reveal">Background</p>
+    <h2 class="stitle reveal">Resume &amp; <em>Experience</em></h2>
+    <div class="resume-grid">
+      <div class="reveal">
+        <div class="r-head">Experience</div>
+        <div class="r-item"><div class="r-date">2022 — Present</div><div class="r-role">Filmmaker</div><div class="r-org">The Mrityukhudha Society</div><div class="r-desc">Leading cinematic direction, screenwriting, and production for culturally resonant short films and documentary projects rooted in Bangladeshi storytelling.</div></div>
+        <div class="r-item"><div class="r-date">2021 — Present</div><div class="r-role">Co-Founder & Creative Director</div><div class="r-org">Think King · 360° Agency, Dhaka</div><div class="r-desc">Co-founded and lead creative strategy, brand identity, and production operations at a full-service agency with an in-house studio.</div></div>
+        <div class="r-item"><div class="r-date">2020 — Present</div><div class="r-role">Co-Founder</div><div class="r-org">Khalnayak · Clothing Brand</div><div class="r-desc">Co-founded a culturally-driven fashion brand drawing from Bangladeshi cinema and popular culture as its creative foundation.</div></div>
+        <div class="r-item"><div class="r-date">Ongoing</div><div class="r-role">Content Creator</div><div class="r-org">A Modern Monk</div><div class="r-desc">Creating and sharing ideas about learning, philosophy, and creative living with a growing audience.</div></div>
+      </div>
+      <div class="reveal">
+        <div class="r-head">Philosophy & Approach</div>
+        <div class="r-item"><div class="r-date">Core Belief</div><div class="r-role">Culture Before Aesthetics</div><div class="r-org">Creative Methodology</div><div class="r-desc">Every project begins with deep cultural research. The visual language of 70s Bengali cinema informs everything I make today.</div></div>
+        <div class="r-item"><div class="r-date">Approach</div><div class="r-role">360° Creative Thinking</div><div class="r-org">Cross-disciplinary Practice</div><div class="r-desc">Film, fashion, brand, and philosophy are not separate disciplines — they are facets of a single creative vision rooted in Bangladeshi identity.</div></div>
+        <div class="r-item"><div class="r-date">Recognition</div><div class="r-role">Dhaka Creative Community</div><div class="r-org">Cultural Entrepreneurship</div><div class="r-desc">Recognized within Dhaka's creative ecosystem for pioneering culturally authentic storytelling across film, fashion, and brand communication.</div></div>
+        <a href="mailto:shapon2point4@gmail.com?subject=CV Request" class="btn btn-oi btn-magnetic" style="margin-top:1rem;display:inline-block;">Request Full CV</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="max-w">
+    <p class="slabel reveal">Get In Touch</p>
+    <h2 class="stitle reveal">Let's build<br><em>something lasting</em></h2>
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="c-item"><div class="c-icon">✉</div><div><div class="c-lbl">Email</div><div class="c-val"><a href="mailto:shapon2point4@gmail.com">shapon2point4@gmail.com</a></div></div></div>
+        <div class="c-item"><div class="c-icon">📍</div><div><div class="c-lbl">Location</div><div class="c-val">Dhaka, Bangladesh</div></div></div>
+        <div class="c-item"><div class="c-icon">💼</div><div><div class="c-lbl">Available For</div><div class="c-val">Film Projects, Brand Collaborations, Creative Consulting</div></div></div>
+        <div class="soc-row">
+          <a href="https://www.facebook.com/shapon2point4" target="_blank" class="soc">FB</a>
+          <a href="https://www.instagram.com/shapon2point4" target="_blank" class="soc">IG</a>
+          <a href="https://www.facebook.com/thinkkingbd" target="_blank" class="soc">TK</a>
+          <a href="https://www.facebook.com/khalnayakbeyou" target="_blank" class="soc">KN</a>
+          <a href="https://www.facebook.com/mrityukhudhasociety" target="_blank" class="soc">MS</a>
+          <a href="https://www.facebook.com/modernmonkshapon" target="_blank" class="soc">MM</a>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="fg"><label>Your Name</label><input type="text" id="fN" placeholder="Your full name"></div>
+        <div class="fg"><label>Email Address</label><input type="email" id="fE" placeholder="your@email.com"></div>
+        <div class="fg"><label>Subject</label><input type="text" id="fS" placeholder="Film project, collaboration, etc."></div>
+        <div class="fg"><label>Message</label><textarea id="fM" rows="5" placeholder="Tell me about your project..."></textarea></div>
+        <button class="btn btn-sienna btn-magnetic" onclick="sendForm()" style="margin-top:0.8rem;">Send Message</button>
+        <div class="form-ok" id="fOk">Thank you! Shapon will be in touch soon.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BACK TO TOP -->
+<a href="#main-content" class="back-to-top" aria-label="Back to top">↑</a>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-logo">Sha<span>pon</span></div>
+  <div class="foot-copy">© 2025 Shapon. All rights reserved. Dhaka, BD.</div>
+  <div class="foot-links">
+    <a href="#about">About</a>
+    <a href="films.html">Films</a>
+    <a href="thinkking.html">Agency</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</footer>
+
+<script>
+// ── INTRO ──
+(function(){
+  const intro = document.getElementById('intro');
+  const skip = document.getElementById('introSkip');
+  
+  // Generate horizontal lines
+  const linesEl = document.getElementById('introLines');
+  for(let i=0;i<20;i++){
+    const l = document.createElement('div');
+    l.className = 'intro-line';
+    l.style.top = (i * 5.5) + '%';
+    linesEl.appendChild(l);
+  }
+  
+  function dismissIntro(){
+    intro.classList.add('hide');
+    setTimeout(()=>{ if(intro.parentNode) intro.parentNode.removeChild(intro); }, 1100);
+  }
+  
+  skip.addEventListener('click', dismissIntro);
+  setTimeout(dismissIntro, 4000);
+})();
+
+// ── SCROLL PROGRESS ──
+const progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', ()=>{
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = (window.scrollY / h * 100) + '%';
+});
+
+// ── CURSOR ──
+const cur = document.getElementById('cur');
+const curR = document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX; my=e.clientY;
+  cur.style.left=mx+'px'; cur.style.top=my+'px';
+});
+(function loop(){
+  rx+=(mx-rx)*0.11; ry+=(my-ry)*0.11;
+  curR.style.left=rx+'px'; curR.style.top=ry+'px';
+  requestAnimationFrame(loop);
+})();
+document.querySelectorAll('a,button,.fb,.venture-row,.port-item,.subp-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ cur.style.transform='translate(-50%,-50%) scale(2.2)'; curR.style.width='52px'; curR.style.height='52px'; curR.style.borderColor='var(--sand)'; });
+  el.addEventListener('mouseleave',()=>{ cur.style.transform='translate(-50%,-50%) scale(1)'; curR.style.width='36px'; curR.style.height='36px'; curR.style.borderColor='var(--sienna)'; });
+});
+
+// ── CURSOR TRAIL ──
+(function(){
+  const trails = [];
+  const N = 8;
+  for(let i=0;i<N;i++){
+    const d = document.createElement('div');
+    d.className='cursor-trail';
+    const s = 6 - i*0.5;
+    d.style.cssText=`width:${s}px;height:${s}px;background:rgba(181,82,42,${0.3-i*0.035});`;
+    document.body.appendChild(d);
+    trails.push({el:d,x:0,y:0});
+  }
+  function animTrails(){
+    trails[0].x+=(mx-trails[0].x)*0.25;
+    trails[0].y+=(my-trails[0].y)*0.25;
+    for(let i=1;i<N;i++){
+      trails[i].x+=(trails[i-1].x-trails[i].x)*0.35;
+      trails[i].y+=(trails[i-1].y-trails[i].y)*0.35;
+    }
+    trails.forEach(t=>{ t.el.style.left=t.x+'px'; t.el.style.top=t.y+'px'; });
+    requestAnimationFrame(animTrails);
+  }
+  animTrails();
+})();
+
+// ── HERO PARTICLE CANVAS ──
+(function(){
+  const canvas = document.getElementById('heroCanvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+  
+  function resize(){
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', ()=>{ resize(); initParticles(); });
+  
+  function initParticles(){
+    particles = [];
+    const N = Math.floor(W * H / 8000);
+    for(let i=0;i<N;i++){
+      particles.push({
+        x: Math.random()*W,
+        y: Math.random()*H,
+        r: Math.random()*1.5+0.3,
+        vx: (Math.random()-0.5)*0.3,
+        vy: (Math.random()-0.5)*0.3,
+        a: Math.random()*0.4+0.05
+      });
+    }
+  }
+  initParticles();
+  
+  let pmx=W/2, pmy=H/2;
+  document.addEventListener('mousemove',e=>{
+    const rect = canvas.getBoundingClientRect();
+    pmx = e.clientX - rect.left;
+    pmy = e.clientY - rect.top;
+  });
+  
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    particles.forEach(p=>{
+      // Gentle repulsion from mouse
+      const dx = p.x - pmx, dy = p.y - pmy;
+      const dist = Math.sqrt(dx*dx+dy*dy);
+      if(dist < 120){
+        p.vx += dx/dist * 0.04;
+        p.vy += dy/dist * 0.04;
+      }
+      p.vx *= 0.98; p.vy *= 0.98;
+      p.x += p.vx; p.y += p.vy;
+      if(p.x<0) p.x=W; if(p.x>W) p.x=0;
+      if(p.y<0) p.y=H; if(p.y>H) p.y=0;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(200,169,110,${p.a})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ── MOUSE PARALLAX ──
+document.addEventListener('mousemove',e=>{
+  const xC = (e.clientX/window.innerWidth - 0.5);
+  const yC = (e.clientY/window.innerHeight - 0.5);
+  document.querySelectorAll('.parallax-el').forEach(el=>{
+    const d = parseFloat(el.dataset.depth)||0.02;
+    el.style.transform=`translate(${xC*d*500}px,${yC*d*500}px)`;
+  });
+  // Hero bgtext subtle shift
+  const bg = document.getElementById('heroBgText');
+  if(bg) bg.style.transform=`translate(calc(-50% + ${xC*15}px), calc(-50% + ${yC*10}px))`;
+});
+
+// ── TEXT SCRAMBLE ──
+(function(){
+  const el = document.getElementById('scrambleTarget');
+  if(!el) return;
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#@%*';
+  const target = 'Sha';
+  let frame=0, total=50;
+  function tick(){
+    el.textContent = target.split('').map((c,i)=>{
+      if(i < Math.floor(frame/total*target.length)) return c;
+      return c===' '?' ':chars[Math.floor(Math.random()*chars.length)];
+    }).join('');
+    frame++;
+    if(frame<=total) setTimeout(tick, 40);
+  }
+  setTimeout(tick, 2200);
+})();
+
+// ── MAGNETIC BUTTONS ──
+document.querySelectorAll('.btn-magnetic').forEach(btn=>{
+  btn.addEventListener('mousemove',e=>{
+    const r = btn.getBoundingClientRect();
+    const x = (e.clientX-r.left-r.width/2)*0.25;
+    const y = (e.clientY-r.top-r.height/2)*0.25;
+    btn.style.transform=`translate(${x}px,${y}px)`;
+    btn.style.transition='transform 0.1s ease';
+  });
+  btn.addEventListener('mouseleave',()=>{
+    btn.style.transform='translate(0,0)';
+    btn.style.transition='transform 0.5s cubic-bezier(0.16,1,0.3,1)';
+  });
+});
+
+// ── HAMBURGER ──
+let menuOpen=false;
+function toggleMenu(){
+  menuOpen=!menuOpen;
+  document.getElementById('menuOverlay').classList.toggle('open',menuOpen);
+  document.getElementById('ham').classList.toggle('open',menuOpen);
+  document.body.style.overflow=menuOpen?'hidden':'';
+}
+function closeMenu(){
+  menuOpen=false;
+  document.getElementById('menuOverlay').classList.remove('open');
+  document.getElementById('ham').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+// ── NAV SCROLL ──
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>60);
+});
+
+// ── REVEAL ──
+const obs=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting) e.target.classList.add('visible');});
+},{threshold:0.07});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// ── SKILL BARS ──
+const skObs=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.skill-fill').forEach(b=>{
+        b.style.transform='scaleX('+b.dataset.pct+')';
+      });
+    }
+  });
+},{threshold:0.2});
+const sc=document.getElementById('skillsCols');
+if(sc) skObs.observe(sc);
+
+// ── PORTFOLIO FILTER ──
+function filterWork(cat,btn){
+  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.port-item').forEach(i=>{
+    const show = cat==='all'||i.dataset.cat===cat;
+    i.style.opacity=show?'1':'0.15';
+    i.style.pointerEvents=show?'auto':'none';
+  });
+}
+
+// ── CONTACT FORM ──
+function sendForm(){
+  const n=document.getElementById('fN').value,e=document.getElementById('fE').value,
+        s=document.getElementById('fS').value,m=document.getElementById('fM').value;
+  if(!n||!e||!m){alert('Please fill in name, email and message.');return;}
+  window.open('mailto:shapon2point4@gmail.com?subject='+encodeURIComponent(s||'Portfolio Contact')+'&body='+encodeURIComponent('Name: '+n+'\nEmail: '+e+'\n\n'+m));
+  document.getElementById('fOk').style.display='block';
+}
+
+// ── TILT on PORTFOLIO ITEMS ──
+document.querySelectorAll('.port-item').forEach(el=>{
+  el.addEventListener('mousemove',e=>{
+    const r = el.getBoundingClientRect();
+    const x = (e.clientX-r.left)/r.width - 0.5;
+    const y = (e.clientY-r.top)/r.height - 0.5;
+    el.style.transform=`perspective(600px) rotateY(${x*8}deg) rotateX(${-y*8}deg) scale(1.02)`;
+  });
+  el.addEventListener('mouseleave',()=>{
+    el.style.transform='perspective(600px) rotateY(0) rotateX(0) scale(1)';
+    el.style.transition='transform 0.5s ease';
+  });
+  el.addEventListener('mouseenter',()=>{ el.style.transition='transform 0.1s ease'; });
+// ── BACK TO TOP ──
+const backToTop = document.querySelector('.back-to-top');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 500) {
+    backToTop.classList.add('show');
+  } else {
+    backToTop.classList.remove('show');
+  }
+});
+</script>
+</body>
+</html>
